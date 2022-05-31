@@ -3,6 +3,7 @@ using System.Collections.Generic;
 using System.Linq;
 using System.Threading.Tasks;
 using AutoMapper;
+using AutoMapper.QueryableExtensions;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
@@ -53,7 +54,7 @@ namespace BookStoreApp.API.Controllers
 
         // GET: api/Authors/5
         [HttpGet("{id}")]
-        public async Task<ActionResult<AuthorReadOnlyDto>> GetAuthor(int id)
+        public async Task<ActionResult<AuthorDetailsDto>> GetAuthor(int id)
         {
             try
             {
@@ -61,15 +62,19 @@ namespace BookStoreApp.API.Controllers
                 {
                     logger.LogWarning("Record not found: {nameof(GetAuthor)} - ID: {id}");
                     return NotFound();
-                }       
-                var author = await _context.Authors.FindAsync(id);
+                }
+
+                var author = await _context.Authors
+                    .Include(q => q.Books)
+                    .ProjectTo<AuthorDetailsDto>(mapper.ConfigurationProvider)
+                    .FirstOrDefaultAsync(q => q.Id == id);
 
                 if (author == null)
                 {
                     return NotFound();
                 }
         
-                return Ok(mapper.Map<AuthorReadOnlyDto>(author));
+                return Ok(author);
             }
             catch (Exception ex)
             {
