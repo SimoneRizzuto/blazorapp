@@ -13,7 +13,7 @@ namespace BookStoreApp.API.Models.Book
 
         [Required]
         [Range(1000, int.MaxValue)]
-        public string Year { get; set; }
+        public int Year { get; set; }
 
         [Required]
         public string Isbn { get; set; }
@@ -28,6 +28,6 @@ namespace BookStoreApp.API.Models.Book
 
         [Required]
         [Range(0, int.MaxValue)]
-        public string Price { get; set; }
+        public decimal Price { get; set; }
     }
 }

@@ -1,4 +1,4 @@
-﻿@page "/books/update/{Id}"
+﻿@page "/books/update/{Id:int}"
 @using BookStoreApp.Blazor.Server.UI.Static
 @using System.Reflection.Metadata
 @attribute [Authorize(Roles = Roles.Administrator)]
@@ -9,8 +9,9 @@
 <h3>Update Book</h3>
 
 <EditForm Model="Book" OnValidSubmit="HandleBookUpdate">
-    <DataAnnotationsValidator/>
-    <ValidationSummary/>
+    @*<DataAnnotationsValidator/>
+    <ValidationSummary/>*@
+    
     <div class="form-group">
         <label for="title">Book Title</label>
         <InputText @bind-Value="Book.Title" class="form-control" id="title"/>
@@ -21,11 +22,13 @@
         <InputText @bind-Value="Book.Isbn" class="form-control" id="isbn"/>
     </div>
     <br/>
+    
     <div class="form-group">
         <label for="price">Price</label>
         <InputNumber @bind-Value="Book.Price" class="form-control" id="price"/>
     </div>
     <br/>
+    
     <div class="form-group">
         <label for="year">Year</label>
         <InputNumber @bind-Value="Book.Year" class="form-control" id="year"/>
@@ -77,7 +80,7 @@
     private string img = string.Empty;
     private string UploadFileWarning = string.Empty;
     
-    protected async override  Task OnInitializedAsync()
+    protected async override Task OnInitializedAsync()
     {
         var bookResponse = await bookService.GetForUpdate(Id);
 

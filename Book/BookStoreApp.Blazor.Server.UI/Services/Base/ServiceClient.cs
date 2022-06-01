@@ -1442,8 +1442,8 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
         public string Title { get; set; }
 
         [Newtonsoft.Json.JsonProperty("year", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Year { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(1000, 2147483647)]
+        public int Year { get; set; }
 
         [Newtonsoft.Json.JsonProperty("isbn", Required = Newtonsoft.Json.Required.Always)]
         [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
@@ -1464,8 +1464,8 @@ namespace BookStoreApp.Blazor.Server.UI.Services.Base
         public string OriginalImageName { get; set; }
 
         [Newtonsoft.Json.JsonProperty("price", Required = Newtonsoft.Json.Required.Always)]
-        [System.ComponentModel.DataAnnotations.Required(AllowEmptyStrings = true)]
-        public string Price { get; set; }
+        [System.ComponentModel.DataAnnotations.Range(0D, 2147483647D)]
+        public double Price { get; set; }
 
     }
 
