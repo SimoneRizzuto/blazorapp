@@ -38,7 +38,7 @@ namespace BookStoreApp.API.Data
 
             modelBuilder.Entity<Book>(entity =>
             {
-                entity.Property(e => e.Image).HasMaxLength(50);
+                entity.Property(e => e.Image).HasMaxLength(250);
 
                 entity.Property(e => e.Isbn)
                     .HasMaxLength(50)
