@@ -37,7 +37,7 @@
                 {
                     <div class="col-3">
                         <div class="card" style="width: 18rem;">
-                            <img src="@book.Image" class="card-img-top" alt="@book.Title"/>
+                            <img src="@book.Image" class="card-img-top" alt="@book.Title" style="width: 286px; height:164px"/>
                             <div class="card-body">
                                 <h5 class="card-title">@book.Title</h5>
                                 <p class="card-test">$@book.Price</p>
@@ -54,12 +54,12 @@
     
     
 
-    <button @onclick="GoToEdit" class="btn btn-warning">
+    <button @onclick="GoToEdit" class="btn btn-warning" type="button">
         <span class="oi oi-pencil"/>
         Edit Author
     </button>
 
-    <button @onclick="BackToList" class="btn btn-outline-secondary">
+    <button @onclick="BackToList" class="btn btn-outline-secondary" type="button">
         <span class="oi oi-media-skip-backward"/>
         Back to List
     </button>

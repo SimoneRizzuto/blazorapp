@@ -14,26 +14,31 @@
     <div class="form-group">
         <label for="title">Book Title</label>
         <InputText @bind-Value="Book.Title" class="form-control" id="title"/>
+        <ValidationMessage For="@(() => Book.Title)"/>
     </div>
     <br/>
     <div class="form-group">
         <label for="isbn">ISBN</label>
         <InputText @bind-Value="Book.Isbn" class="form-control" id="isbn"/>
+        <ValidationMessage For="@(() => Book.Isbn)"/>
     </div>
     <br/>
     <div class="form-group">
         <label for="price">Price</label>
         <InputNumber @bind-Value="Book.Price" class="form-control" id="price"/>
+        <ValidationMessage For="@(() => Book.Price)"/>
     </div>
     <br/>
     <div class="form-group">
         <label for="year">Year</label>
         <InputNumber @bind-Value="Book.Year" class="form-control" id="year"/>
+        <ValidationMessage For="@(() => Book.Year)"/>
     </div>
     <br/>
     <div class="form-group">
         <label for="summary">Summary</label>
         <InputTextArea @bind-Value="Book.Summary" class="form-control" id="summary"/>
+        <ValidationMessage For="@(() => Book.Summary)"/>
     </div>
     <br/>
     <div class="form-group">
@@ -45,6 +50,7 @@
                 <option value="@author.Id">@author.FirstName @author.LastName</option>
             }
         </InputSelect>
+        <ValidationMessage For="@(() => Book.AuthorId)"/>
     </div>
     <br/>
     <div class="form-group">
@@ -60,7 +66,7 @@
         <span class="oi oi-pencil" />
         Create Author
     </button>
-    <button @onclick="BackToList" class="btn btn-outline-secondary">
+    <button @onclick="BackToList" class="btn btn-outline-secondary" type="button">
         <span class="oi oi-media-skip-backward" />
         Back To List
     </button>
@@ -70,8 +76,10 @@
 @code {
     private BookCreateDto Book = new ();
     private List<AuthorReadOnlyDto> Authors = new ();
+
     private string UploadFileWarning = string.Empty;
     private string img = string.Empty;
+    private long maxFileSize = 1024 * 1024 * 5;
 
     protected override async Task OnInitializedAsync()
     {
@@ -97,22 +105,25 @@
         var file = e.File;
         if (file != null)
         {
-            var ext = System.IO.Path.GetExtension(file.Name);
-            if (ext.ToLower().Contains(".jpg") || ext.ToLower().Contains(".png") || ext.ToLower().Contains(".jpeg"))
+            if (file.Size > maxFileSize)
             {
-                var byteArray = new byte[file.Size];
-                await file.OpenReadStream().ReadAsync(byteArray);
-                string imageType = file.ContentType;
-                string base64String = Convert.ToBase64String(byteArray);
-
-                Book.ImageData = base64String;
-                Book.OriginalImageName = file.Name;
-                img = $"data:{imageType}; base64, {base64String}";
+                UploadFileWarning = "This file is too big to upload...";
+                return;
             }
-            else
+            var ext = System.IO.Path.GetExtension(file.Name);
+            if ((ext.ToLower().Contains(".jpg") || ext.ToLower().Contains(".png") || ext.ToLower().Contains(".jpeg")) == false)
             {
                 UploadFileWarning = "Please select a valid image file... (*.jpg | @.png)";
+                return;
             }
+            var byteArray = new byte[file.Size];
+            await file.OpenReadStream().ReadAsync(byteArray);
+            string imageType = file.ContentType;
+            string base64String = Convert.ToBase64String(byteArray);
+
+            Book.ImageData = base64String;
+            Book.OriginalImageName = file.Name;
+            img = $"data:{imageType}; base64, {base64String}";
         }
     }
 
