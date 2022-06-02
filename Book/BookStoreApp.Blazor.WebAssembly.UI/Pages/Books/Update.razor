@@ -1,6 +1,7 @@
 ﻿@page "/books/update/{Id:int}"
-@using BookStoreApp.Blazor.Server.UI.Static
+@using BookStoreApp.Blazor.WebAssembly.UI.Static
 @using System.Reflection.Metadata
+@using Microsoft.AspNetCore.Authorization
 @attribute [Authorize(Roles = Roles.Administrator)]
 @inject IBookService bookService
 @inject IAuthorService authorService
