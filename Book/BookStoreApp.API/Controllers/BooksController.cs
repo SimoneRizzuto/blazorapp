@@ -34,7 +34,7 @@ namespace BookStoreApp.API.Controllers
         [HttpGet]
         public async Task<ActionResult<IEnumerable<BookReadOnlyDto>>> GetBooks()
         {
-            var bookDtos = booksRepository.GetAllBooksAsync();
+            var bookDtos = await booksRepository.GetAllBooksAsync();
             return Ok(bookDtos);
         }
 
