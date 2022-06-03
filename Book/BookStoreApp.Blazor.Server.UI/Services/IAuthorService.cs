@@ -6,6 +6,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services;
 public interface IAuthorService
 {
     Task<Response<AuthorReadOnlyDtoVirtualiseResponse>> Get(QueryParameters queryParams);
+    Task<Response<List<AuthorReadOnlyDto>>> Get();
     Task<Response<AuthorDetailsDto>> Get(int id);
     Task<Response<AuthorUpdateDto>> GetForUpdate(int id);
     Task<Response<int>> Create(AuthorCreateDto author);

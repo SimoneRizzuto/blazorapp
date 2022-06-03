@@ -57,6 +57,29 @@ namespace BookStoreApp.API.Controllers
             }
         }
 
+        // GET: api/Authors/
+        [HttpGet("GetAll")]
+        public async Task<ActionResult<List<AuthorReadOnlyDto>>> GetAuthors()
+        {
+            try
+            {
+                var authors = await authorsRepository.GetAllAsync();
+                var authorDtos = mapper.Map<IEnumerable<AuthorReadOnlyDto>>(authors);
+
+                if (authorDtos == null)
+                {
+                    return NotFound();
+                }
+
+                return Ok(authorDtos);
+            }
+            catch (Exception ex)
+            {
+                logger.LogError(ex, $"Error Performing GET in {nameof(GetAuthors)}");
+                return StatusCode(500, Messages.Error500Message);
+            }
+        }
+
         // GET: api/Authors/5
         [HttpGet("{id}")]
         public async Task<ActionResult<AuthorDetailsDto>> GetAuthor(int id)

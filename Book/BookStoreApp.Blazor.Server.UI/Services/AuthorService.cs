@@ -111,6 +111,27 @@ namespace BookStoreApp.Blazor.Server.UI.Services
             return response;
         }
 
+        public async Task<Response<List<AuthorReadOnlyDto>>> Get()
+        {
+            Response<List<AuthorReadOnlyDto>> response;
+        try
+            {
+                await GetBearerToken();
+                var data = await client.GetAllAsync();
+                response = new Response<List<AuthorReadOnlyDto>>
+                {
+                    Data =  data.ToList(),
+                    Success = true
+                };
+            }
+            catch (ApiException exception)
+            {
+                response = ConvertApiExceptions<List<AuthorReadOnlyDto>>(exception);
+            }
+
+        return response;
+        }
+
         public async Task<Response<AuthorUpdateDto>> GetForUpdate(int id)
         {
             Response<AuthorUpdateDto> response;
