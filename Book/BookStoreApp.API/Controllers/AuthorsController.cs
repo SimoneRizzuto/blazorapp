@@ -8,6 +8,7 @@ using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Mvc;
 using Microsoft.EntityFrameworkCore;
 using BookStoreApp.API.Data;
+using BookStoreApp.API.Models;
 using BookStoreApp.API.Models.Author;
 using BookStoreApp.API.Repositories;
 using BookStoreApp.API.Static;
@@ -32,24 +33,26 @@ namespace BookStoreApp.API.Controllers
             this.logger = logger;
         }
 
-        // GET: api/Authors
+        // GET: api/Authors/?startindex=0&pagesize=15
         [HttpGet]
-        public async Task<ActionResult<IEnumerable<AuthorReadOnlyDto>>> GetAuthors()
+        public async Task<ActionResult<VirtualiseResponse<AuthorReadOnlyDto>>> GetAuthors([FromQuery]QueryParameters queryParameters)
         {
             try
             {
-                var authors = mapper.Map<IEnumerable<AuthorReadOnlyDto>>(await authorsRepository.GetAllAsync());
+                var authorDtos = await authorsRepository.GetAllAsync<AuthorReadOnlyDto>(queryParameters);
 
-                if (authors == null)
+                //var authors = mapper.Map<IEnumerable<AuthorReadOnlyDto>>(await authorsRepository.GetAllAsync());
+
+                if (authorDtos == null)
                 {
                     return NotFound();
                 }
 
-                return Ok(authors);
+                return Ok(authorDtos);
             }
             catch (Exception ex)
             {
-                logger.LogError(ex, "Error Performing GET in {nameofGetAuthors}");
+                logger.LogError(ex, $"Error Performing GET in {nameof(GetAuthors)}");
                 return StatusCode(500, Messages.Error500Message);
             }
         }

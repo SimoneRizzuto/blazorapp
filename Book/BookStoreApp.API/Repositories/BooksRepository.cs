@@ -10,7 +10,7 @@ public class BooksRepository : GenericRepository<Book>, IBooksRepository
 {
     private readonly BookStoreDBContext context;
     private readonly IMapper mapper;
-    public BooksRepository(BookStoreDBContext context, IMapper mapper) : base(context)
+    public BooksRepository(BookStoreDBContext context, IMapper mapper) : base(context, mapper)
     {
         this.context = context;
         this.mapper = mapper;

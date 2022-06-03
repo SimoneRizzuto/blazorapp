@@ -1,4 +1,8 @@
-﻿using BookStoreApp.API.Data;
+﻿using AutoMapper;
+using AutoMapper.QueryableExtensions;
+using BookStoreApp.API.Data;
+using BookStoreApp.API.Models;
+using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
 
 namespace BookStoreApp.API.Repositories;
@@ -6,10 +10,13 @@ namespace BookStoreApp.API.Repositories;
 public class GenericRepository<T> : IGenericRepository<T> where T : class
 {
     private readonly BookStoreDBContext context;
-    public GenericRepository(BookStoreDBContext context)
+    private readonly IMapper mapper;
+    public GenericRepository(BookStoreDBContext context, IMapper mapper)
     {
         this.context = context;
+        this.mapper = mapper;
     }
+    
     public async Task<T> AddAsync(T entity)
     {
         await context.AddAsync(entity);
@@ -40,6 +47,22 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
         }
 
         return await context.Set<T>().FindAsync(id);
+    }
+
+    public async Task<VirtualiseResponse<TResult>> GetAllAsync<TResult>(QueryParameters queryParam) where TResult : class
+    {
+        var totalSize = await context.Set<T>().CountAsync();
+        var items = await context.Set<T>()
+            .Skip(queryParam.StartIndex)
+            .Take(queryParam.PageSize)
+            .ProjectTo<TResult>(mapper.ConfigurationProvider)
+            .ToListAsync();
+
+        return new VirtualiseResponse<TResult>
+        {
+            Items = items, 
+            TotalSize = totalSize
+        };
     }
     public async Task UpdateAsync(T entity)
     {
