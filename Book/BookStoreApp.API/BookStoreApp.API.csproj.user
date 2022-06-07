@@ -10,5 +10,6 @@
     <WebStackScaffolding_LayoutPageFile />
     <WebStackScaffolding_DbContextTypeFullName>BookStoreApp.API.Data.BookStoreDBContext</WebStackScaffolding_DbContextTypeFullName>
     <WebStackScaffolding_IsAsyncSelected>False</WebStackScaffolding_IsAsyncSelected>
+    <NameOfLastUsedPublishProfile>G:\Work Folder\Healthline Job\BlazorProject\.github\workflows\BookStoreAppAPISimoneRizzuto.yml</NameOfLastUsedPublishProfile>
   </PropertyGroup>
 </Project>
