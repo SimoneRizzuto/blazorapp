@@ -114,7 +114,7 @@ namespace BookStoreApp.Blazor.Server.UI.Services
         public async Task<Response<List<AuthorReadOnlyDto>>> Get()
         {
             Response<List<AuthorReadOnlyDto>> response;
-        try
+            try
             {
                 await GetBearerToken();
                 var data = await client.GetAllAsync();
