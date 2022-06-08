@@ -86,7 +86,7 @@ namespace BookStoreApp.API.Controllers
         {
             try
             {
-                var author = authorsRepository.GetAuthorDetailsAsync(id);
+                var author = await authorsRepository.GetAuthorDetailsAsync(id);
 
                 if (author == null)
                 {
@@ -94,7 +94,8 @@ namespace BookStoreApp.API.Controllers
                     return NotFound();
                 }
         
-                return Ok(author);
+                var authorDto = mapper.Map<AuthorDetailsDto>(author);
+                return Ok(authorDto);
             }
             catch (Exception ex)
             {

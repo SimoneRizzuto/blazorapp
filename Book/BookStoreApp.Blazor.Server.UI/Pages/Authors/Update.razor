@@ -1,30 +1,28 @@
 ﻿@page "/authors/update/{Id:int}"
 @using BookStoreApp.Blazor.Server.UI.Static
+@attribute [Authorize(Roles = Roles.Administrator)]
 @inject IAuthorService authorService
 @inject NavigationManager navManager
-@attribute [Authorize(Roles = Roles.Administrator)]
 <h3>Update Author</h3>
 <EditForm Model="Author" OnValidSubmit="HandleUpdateAuthor">
     <DataAnnotationsValidator/>
     <ValidationSummary/>
+
     <div class="form-group">
         <label for="firstname">First Name</label>
         <InputText @bind-Value="Author.FirstName" class="form-control" id="firstname"/>
         <ValidationMessage For="@(() => Author.FirstName)"/>
-    </div>
-    <br/>
+    </div> <br/>
     <div class="form-group">
         <label for="lastname">Last Name</label>
         <InputText @bind-Value="Author.LastName" class="form-control" id="lastname"/>
         <ValidationMessage For="@(() => Author.LastName)"/>
-    </div>
-    <br/>
+    </div> <br/>
     <div class="form-group">
         <label for="bio">Biography</label>
         <InputText @bind-Value="Author.Bio" class="form-control" id="bio"/>
         <ValidationMessage For="@(() => Author.Bio)"/>
-    </div>
-    <br/>
+    </div> <br/>
     
     <div class="btn btn-primary" type="submit">
         <span class="oi oi-pencil"></span>
@@ -42,13 +40,15 @@
 
     private AuthorUpdateDto Author = new AuthorUpdateDto();
 
-    protected async override Task OnInitializedAsync()
+    protected override async Task OnInitializedAsync()
     {
         var response = await authorService.GetForUpdate(Id);
         if (response.Success)
         {
             Author = response.Data;
         }
+
+        Console.Write(response);
     }
 
     private async Task HandleUpdateAuthor()

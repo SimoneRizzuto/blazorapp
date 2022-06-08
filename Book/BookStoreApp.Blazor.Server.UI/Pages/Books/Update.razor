@@ -56,7 +56,7 @@
         <ValidationMessage For="@(() => Book.AuthorId)"/>
     </div>
     <br/>
-    <div class="form-group">
+    <div class="form-group">    
         <label>Book Cover Photo</label>
         <div>
             <InputFile OnChange="HandleFileSelection"/>
@@ -90,7 +90,6 @@
     protected async override Task OnInitializedAsync()
     {
         var bookResponse = await bookService.GetForUpdate(Id);
-
         if (bookResponse.Success)
         {
             Book = bookResponse.Data;
