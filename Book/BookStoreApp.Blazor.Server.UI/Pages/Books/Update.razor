@@ -119,7 +119,23 @@
                 return;
             }
             var byteArray = new byte[file.Size];
-            await file.OpenReadStream().ReadAsync(byteArray);
+            //await file.OpenReadStream().ReadAsync(byteArray);
+
+            int read = 0;
+            var length = file.Size;
+    
+            //Use buffer to read little bits of file at a time over to API. Graceful solution to Max File size problem
+            await using (var stream = file.OpenReadStream(maxFileSize))
+            {
+                do
+                {
+                    var remaining = length - read;
+                    var thisRead = await stream.ReadAsync(byteArray, read, System.Math.Min((int)remaining, 65*1024));
+                    //Console.WriteLine($"Total read: {read} - This read: {thisRead}");
+                    read += thisRead;
+                } while (read < length);
+            }
+
             string imageType = file.ContentType;
             string base64String = Convert.ToBase64String(byteArray);
 
