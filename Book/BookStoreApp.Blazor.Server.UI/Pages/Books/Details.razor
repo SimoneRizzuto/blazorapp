@@ -7,10 +7,13 @@
 <EditForm Model="Book">
     <fieldset disabled="true">
         <div class="form-group">
-            <label>Book Cover Photo</label>
-            <div>
-                <img src="@Book.Image" width="200" height="160" class="img-thumbnail"/>
-            </div>
+            @if (Book.Image != null)
+            {
+                <label>Book Cover Photo</label>
+                <div>
+                    <img src="@Book.Image" width="200" height="160" class="img-thumbnail"/>
+                </div>
+            }
         </div>
         <br/>
         <div class="form-group">

@@ -26,9 +26,9 @@ else
             <a class="btn btn-dark" href="/authors/create"><span class="oi oi-plus" aria-hidden="true"></span> Create </a>
         </AuthorizeView>
         <br/>
-        <AuthorTable Authors="Authors" TotalSize="TotalSize" OnScroll="LoadAuthors"/>
+        @*AuthorTable Authors="Authors" TotalSize="TotalSize" OnScroll="LoadAuthors"/>*@
 
-        @*<table class="table table-responsive">
+        <table class="table table-responsive">
             <thead>
             <tr>
                 <th>First Name</th>
@@ -53,7 +53,7 @@ else
                 </tr>
             }
             </tbody>
-        </table>*@
+        </table>
     }
 }
 
@@ -82,7 +82,7 @@ else
         TotalSize = virtualiseResult.Data.TotalSize;
     }
     
-    /*/
+    
     private async Task Delete(int authorId)
     {
         var author = Authors.First(q => q.Id == authorId);
@@ -97,5 +97,5 @@ else
                 await OnInitializedAsync();
             }
         }
-    }*/
+    }
 }
