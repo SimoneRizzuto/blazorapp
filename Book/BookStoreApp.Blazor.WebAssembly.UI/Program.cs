@@ -22,7 +22,7 @@ if (builder.HostEnvironment.IsProduction())
 builder.Services.AddScoped(sp => new HttpClient{ BaseAddress = new Uri(baseAddress)});
 
 builder.Services.AddBlazoredLocalStorage();
-
+builder.Services.AddDevExpressBlazor(); // DevExpress service
 builder.Services.AddScoped<ApiAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(p =>
     p.GetRequiredService<ApiAuthenticationStateProvider>());
