@@ -1,4 +1,5 @@
 ﻿@page "/books/details/{Id:int}"
+@using BookStoreApp.Blazor.Server.UI.Static
 @inject NavigationManager navManager
 @inject IBookService bookService
 
@@ -48,17 +49,20 @@
         <br/>
 
     </fieldset>
+</EditForm>
 
+<AuthorizeView Roles=@Roles.Administrator>
     <button class="btn btn-warning" @onclick="GoToEdit" type="button">
         <span class="oi oi-pencil" />
         Edit Book
     </button>
-    <button @onclick="BackToList" class="btn btn-outline-secondary" type="button">
-        <span class="oi oi-media-skip-backward" />
-        Back To List
-    </button>
+</AuthorizeView>
+<button @onclick="BackToList" class="btn btn-outline-secondary" type="button">
+    <span class="oi oi-media-skip-backward" />
+    Back To List
+</button>
 
-</EditForm>
+
 
 @code {
     [Parameter]
