@@ -2,7 +2,7 @@ name: Build and deploy .NET Core application to Web App bookstoreblazorserver-si
 on:
   push:
     branches:
-    - Experiment
+    - main
 env:
   AZURE_WEBAPP_NAME: bookstoreblazorserver-simone
   AZURE_WEBAPP_PACKAGE_PATH: Book/BookStoreApp.Blazor.Server.UI/published
