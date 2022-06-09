@@ -4,6 +4,11 @@
 
 <h1>Welcome to your BookStore.</h1>
 
-<h2>Please, choose an option on the sidebar.</h2>
-
-
+<AuthorizeView>
+    <Authorized>
+        <h2>Pick an option on the side to view a BOOK or an AUTHOR.</h2>
+    </Authorized>
+    <NotAuthorized>
+        <h2>Please REGISTER or LOGIN by clicking an option on the sidebar.</h2>
+    </NotAuthorized>
+</AuthorizeView>
