@@ -1,8 +1,11 @@
 ﻿@page "/books/"
 @using Microsoft.AspNetCore.Authentication.OAuth.Claims
 @using BookStoreApp.Blazor.Server.UI.Static
+@using DevExpress.Blazor.Internal;
+@using DevExpress.Blazor.Internal.Grid;
 @inject IBookService bookService
 @inject IJSRuntime js
+@inject NavigationManager navManager
 <h3>Index</h3>
 
 @if (response.Success == false)
@@ -22,9 +25,24 @@ else
     else
     {
         <AuthorizeView Roles=@Roles.Administrator>
-            <a class="btn btn-primary" href="/books/create"><span class="oi oi-plus" aria-hidden="true"></span> Create</a>
+            <DxButton Text="Create" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" Click="@GoToCreate" />
         </AuthorizeView>
+        @foreach (var book in Books)
+        {
+            <DxGrid Data="@Books">
+                <Columns>
+                    <DxGridDataColumn FieldName="Image"><img src="@book.Image" width="100" height="100" alt="@book.Title"/></DxGridDataColumn>
+                    <DxGridDataColumn FieldName="Title"></DxGridDataColumn>
+                    <DxGridDataColumn FieldName="Price"></DxGridDataColumn>
+                </Columns>
+            </DxGrid>
+        }
         <br/>
+
+        
+
+        
+
         <table class="table table-responsive">
             <thead>
             <tr>
@@ -38,6 +56,10 @@ else
             <tbody>
             @foreach (var book in Books)
             {
+                
+
+
+
                 <tr>
                     @if (book.Image != null)
                     {
@@ -94,5 +116,10 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+
+    private void GoToCreate()
+    {
+        navManager.NavigateTo("/books/create/");
     }
 }
