@@ -28,17 +28,29 @@ else
     {
         <div>
             <AuthorizeView Roles=@Roles.Administrator>
-                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" Click="@GoToCreate" />
+                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
+                      Click="@GoToCreate" />
             </AuthorizeView>
-            <br/>
+        </div><br/>
+        
+
+        <div>
+            <DxButton Text="Column Selecter (Filter)" RenderStyle="ButtonRenderStyle.Dark" SizeMode="SizeMode.Small" CssClass="column-chooser-button" 
+                      Click="@PickColumn"/>
         </div>
-        <br/>
+
         <div>
             <DxGrid Data="Books"
                     KeyFieldName="Id"
+                    @ref="Grid"
+                    ShowGroupPanel="true"
                     ShowFilterRow="true"
                     PageSize="5"
-                    PageSizeSelectorItems="@(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 75, 100})" >
+                    PageSizeSelectorVisible="true"
+                    PageSizeSelectorItems="@(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 75, 100})" 
+                    AllowSelectRowByClick="true"
+                    SelectionMode="GridSelectionMode.Multiple"
+                    @bind-SelectedDataItems="@Selected">
                 <Columns>
                     @* Selection *@
                     <DxGridSelectionColumn Width="15"/>
@@ -80,57 +92,21 @@ else
 
                 </Columns>
             </DxGrid>
-        </div>
+        </div> <br/>
 
-        <br/>
-
-        
-        @*<a class="btn btn-warning" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
-        <a class="btn btn-danger" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>*@
-        
-
-        @*<table class="table table-responsive">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Author Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var book in Books)
-            {
-                <tr>
-                    @if (book.Image != null)
-                    {
-                        <td>
-                            <img src="@book.Image" width="100" height="100" alt="@book.Title"/>
-                        </td>
-                    }
-                    else
-                    {
-                        <td></td>
-                    }
-                    <td>@book.Title</td>
-                    <td>$@book.Price</td>
-                    <td><a class="btn btn-link" href="/authors/details/@book.AuthorId">@book.AuthorName </a></td>
-                    <td>
-                        <a class="btn btn-primary" href="/books/details/@book.Id"><span class="oi oi-book" aria-hidden="true"></span> Details</a>
-
-                        
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>*@
+        @foreach(var book in Selected.Cast<BookReadOnlyDto>()) 
+        {
+            <li class="list-group-item bg-transparent text-body py-1 border-0"> <b>Book:</b> <i>@book.Title</i> <b>Author:</b> <i>@book.AuthorName</i></li>
+        }
     }
 }
 
 @code {
     private List<BookReadOnlyDto> Books;
     private Response<List<BookReadOnlyDto>> response = new Response<List<BookReadOnlyDto>>{ Success = true };
+
+    IGrid Grid { get; set; }
+    IReadOnlyList<object> Selected { get; set; } // Selected isn't allowed to be null/empty.
 
     protected override async Task OnInitializedAsync()
     {
@@ -139,6 +115,7 @@ else
         {
             Books = response.Data;
         }
+        Selected = Books.Take(0).ToList(); 
     }
 
 
@@ -166,6 +143,11 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+
+    private void PickColumn()
+    {
+        Grid.ShowColumnChooser(".column-chooser-button");
     }
 
     private void GoToCreate()
