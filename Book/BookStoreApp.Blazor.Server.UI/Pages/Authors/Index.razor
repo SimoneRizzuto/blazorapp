@@ -4,7 +4,16 @@
 @using BookStoreApp.Blazor.Server.UI.Models
 @inject IAuthorService authorService
 @inject IJSRuntime js
+@inject NavigationManager navManager
 <h3>Index</h3>
+
+
+<style>
+    tr:nth-child(even) {
+        background-color: darkgrey;
+    }
+</style>
+
 
 @if (response.Success == false)
 {
@@ -22,13 +31,48 @@ else
     }
     else
     {
-        <AuthorizeView Roles=@Roles.Administrator>
-            <a class="btn btn-dark" href="/authors/create"><span class="oi oi-plus" aria-hidden="true"></span> Create </a>
-        </AuthorizeView>
+        <div>
+            <AuthorizeView Roles=@Roles.Administrator>
+                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" Click="@GoToCreate" />
+            </AuthorizeView>
+            <br/>
+        </div>
         <br/>
+        <div>
+            <DxGrid Data="Authors"
+                    KeyFieldName="Id"
+                    ShowFilterRow="true"
+                    PageSize="10"
+                    PageSizeSelectorItems="@(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 75, 100})" >
+                <Columns>
+                    @* Selection *@
+                    <DxGridSelectionColumn Width="15"/>
+                    
+                    @* First Name *@
+                    <DxGridDataColumn FieldName="FirstName" MinWidth="375"/>
+
+                    @* Last Name *@
+                    <DxGridDataColumn FieldName="LastName" MinWidth="375"/>
+
+                    @* Options *@
+                    <DxGridCommandColumn Width="350px" Caption="Options">
+                        <CellDisplayTemplate Context="currentBook">
+                            <DxButton Text="Details" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Details((int)@currentBook.GetRowValue("Id")))/>
+                            <AuthorizeView Roles=@Roles.Administrator>
+                                <DxButton Text="Edit" RenderStyle="ButtonRenderStyle.Warning" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
+                                <DxButton Text="Delete" RenderStyle="ButtonRenderStyle.Danger" SizeMode="SizeMode.Medium" IconCssClass="oi oi-delete" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>
+                            </AuthorizeView>
+                        </CellDisplayTemplate>
+                    </DxGridCommandColumn>
+
+                </Columns>
+            </DxGrid>
+        </div>
+
+
         @*AuthorTable Authors="Authors" TotalSize="TotalSize" OnScroll="LoadAuthors"/>*@
 
-        <table class="table table-responsive">
+        @*<table class="table table-responsive">
             <thead>
             <tr>
                 <th>First Name</th>
@@ -53,7 +97,7 @@ else
                 </tr>
             }
             </tbody>
-        </table>
+        </table>*@
     }
 }
 
@@ -82,7 +126,16 @@ else
         TotalSize = virtualiseResult.Data.TotalSize;
     }
     
-    
+    private void Details(int bookId)
+    {
+        navManager.NavigateTo($"/authors/details/{bookId}");
+    }
+
+    private void Edit(int bookId)
+    {
+        navManager.NavigateTo($"/authors/update/{bookId}");
+    }
+
     private async Task Delete(int authorId)
     {
         var author = Authors.First(q => q.Id == authorId);
@@ -97,5 +150,10 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+
+    private void GoToCreate()
+    {
+        navManager.NavigateTo("/authors/create/");
     }
 }

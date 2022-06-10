@@ -28,50 +28,56 @@ else
     {
         <div>
             <AuthorizeView Roles=@Roles.Administrator>
-                <DxButton Text="Create" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" Click="@GoToCreate" />
+                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" Click="@GoToCreate" />
             </AuthorizeView>
             <br/>
         </div>
-        @foreach (var book in Books)
-        {
-            
-        }
-
-        
-
+        <br/>
         <div>
             <DxGrid Data="Books"
-                    KeyFieldName="Id">
+                    KeyFieldName="Id"
+                    ShowFilterRow="true"
+                    PageSize="5"
+                    PageSizeSelectorItems="@(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 75, 100})" >
                 <Columns>
-                    <DxGridDataColumn FieldName="Image" Width="113px">
+                    @* Selection *@
+                    <DxGridSelectionColumn Width="15"/>
+                    
+                    @* Image *@
+                    <DxGridDataColumn FieldName="Image" Width="113px" FilterRowEditorVisible="false">
                         <CellDisplayTemplate>
                             <img src="@context.GetRowValue("Image")" style="width: 100px; height: 100px" alt="@context.GetRowValue("Title")" class="rounded float-start"/>
                         </CellDisplayTemplate>
                     </DxGridDataColumn>
-                    <DxGridDataColumn FieldName="Title" Width="400px"/>
-                    <DxGridDataColumn FieldName="Price" Width="100px"/>
-                    <DxGridDataColumn FieldName="AuthorName"/>
+                    
+                    @* Title *@
+                    <DxGridDataColumn FieldName="Title" MinWidth="375">
+                        <CellDisplayTemplate Context="currentBook">
+                            <td><a class="btn btn-link" href="/books/details/@currentBook.GetRowValue("Id")"> @currentBook.GetRowValue("Title")</a></td>
+                        </CellDisplayTemplate>
+                    </DxGridDataColumn>
+                    
+                    @* Price *@
+                    <DxGridDataColumn FieldName="Price" DisplayFormat="c2" Width="100px"/>
+                    
+                    @* Author Name *@
+                    <DxGridDataColumn FieldName="AuthorName" MinWidth="375">
+                        <CellDisplayTemplate Context="currentBook">
+                            <td><a class="btn btn-link" href="/authors/details/@currentBook.GetRowValue("AuthorId")"> @currentBook.GetRowValue("AuthorName")</a></td>
+                        </CellDisplayTemplate>
+                    </DxGridDataColumn>
+                    
+                    @* Options *@
                     <DxGridCommandColumn Width="350px" Caption="Options">
                         <CellDisplayTemplate Context="currentBook">
-                                
                             <DxButton Text="Details" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Details((int)@currentBook.GetRowValue("Id")))/>
                             <AuthorizeView Roles=@Roles.Administrator>
                                 <DxButton Text="Edit" RenderStyle="ButtonRenderStyle.Warning" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
                                 <DxButton Text="Delete" RenderStyle="ButtonRenderStyle.Danger" SizeMode="SizeMode.Medium" IconCssClass="oi oi-delete" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>
-                                
-
-                                @*<a class="btn btn-warning" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
-                                <a class="btn btn-danger" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>*@
                             </AuthorizeView>
                         </CellDisplayTemplate>
-
-                            
                     </DxGridCommandColumn>
-                    
 
-                    
-                        
-                    
                 </Columns>
             </DxGrid>
         </div>
@@ -79,7 +85,8 @@ else
         <br/>
 
         
-
+        @*<a class="btn btn-warning" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
+        <a class="btn btn-danger" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>*@
         
 
         @*<table class="table table-responsive">
@@ -95,10 +102,6 @@ else
             <tbody>
             @foreach (var book in Books)
             {
-                
-
-
-
                 <tr>
                     @if (book.Image != null)
                     {
@@ -137,6 +140,7 @@ else
             Books = response.Data;
         }
     }
+
 
     private void Details(int bookId)
     {
