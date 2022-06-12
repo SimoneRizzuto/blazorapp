@@ -2,6 +2,7 @@
 @using BookStoreApp.Blazor.WebAssembly.UI.Static
 @inject IBookService bookService
 @inject IJSRuntime js
+@inject NavigationManager navManager
 <h3>Index</h3>
 
 @if (response.Success == false)
@@ -20,51 +21,87 @@ else
     }
     else
     {
-        <AuthorizeView Roles=@Roles.Administrator>
-            <a class="btn btn-primary" href="/books/create"><span class="oi oi-plus" aria-hidden="true"></span> Create</a>
-        </AuthorizeView>
-        <br/>
-        <table class="table table-responsive">
-            <thead>
-            <tr>
-                <th></th>
-                <th>Title</th>
-                <th>Price</th>
-                <th>Author Name</th>
-                <th>Action</th>
-            </tr>
-            </thead>
-            <tbody>
-            @foreach (var book in Books)
-            {
-                <tr>
-                    <td>
-                    @if (book.Image != null)
-                    {
-                        <img src="@book.Image" width="100" height="100" alt="@book.Title"/>
-                    }
-                    </td>
-                    <td>@book.Title</td>
-                    <td>$@book.Price</td>
-                    <td><a class="btn btn-link" href="/authors/details/@book.AuthorId">@book.AuthorName </a></td>
-                    <td>
-                        <a class="btn btn-primary" href="/books/details/@book.Id"><span class="oi oi-book" aria-hidden="true"></span> Details</a>
+        <div>
+            <AuthorizeView Roles=@Roles.Administrator>
+                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
+                      Click="@GoToCreate" />
+            </AuthorizeView>
+        </div><br/>
+        
 
-                        <AuthorizeView Roles=@Roles.Administrator>
-                            <a class="btn btn-warning" href="/books/update/@book.Id"><span class="oi oi-pencil" aria-hidden="true"></span> Edit</a>
-                            <a class="btn btn-danger" @onclick=@(() => Delete(@book.Id))><span class="oi oi-delete" aria-hidden="true"></span> Delete</a>
-                        </AuthorizeView>
-                    </td>
-                </tr>
-            }
-            </tbody>
-        </table>
+        <div>
+            <DxButton Text="Column Selecter (Filter)" RenderStyle="ButtonRenderStyle.Dark" SizeMode="SizeMode.Small" CssClass="column-chooser-button" 
+                      Click="@PickColumn"/>
+        </div>
+
+        <div>
+            <DxGrid Data="Books"
+                    KeyFieldName="Id"
+                    @ref="Grid"
+                    ShowGroupPanel="true"
+                    ShowFilterRow="true"
+                    PageSize="5"
+                    PageSizeSelectorVisible="true"
+                    PageSizeSelectorItems="@(new int[] {1, 2, 3, 4, 5, 6, 7, 8, 9, 10, 15, 20, 25, 30, 40, 50, 75, 100})" 
+                    AllowSelectRowByClick="true"
+                    SelectionMode="GridSelectionMode.Multiple"
+                    @bind-SelectedDataItems="@Selected">
+                <Columns>
+                    @* Selection *@
+                    <DxGridSelectionColumn Width="15"/>
+                    
+                    @* Image *@
+                    <DxGridDataColumn FieldName="Image" Width="113px" FilterRowEditorVisible="false">
+                        <CellDisplayTemplate>
+                            <img src="@context.GetRowValue("Image")" style="width: 100px; height: 100px" alt="@context.GetRowValue("Title")" class="rounded float-start"/>
+                        </CellDisplayTemplate>
+                    </DxGridDataColumn>
+                    
+                    @* Title *@
+                    <DxGridDataColumn FieldName="Title" MinWidth="375">
+                        <CellDisplayTemplate Context="currentBook">
+                            <td><a class="btn btn-link" href="/books/details/@currentBook.GetRowValue("Id")"> @currentBook.GetRowValue("Title")</a></td>
+                        </CellDisplayTemplate>
+                    </DxGridDataColumn>
+                    
+                    @* Price *@
+                    <DxGridDataColumn FieldName="Price" DisplayFormat="c" Width="100px"/>
+                    
+                    @* Author Name *@
+                    <DxGridDataColumn FieldName="AuthorName" MinWidth="375">
+                        <CellDisplayTemplate Context="currentBook">
+                            <td><a class="btn btn-link" href="/authors/details/@currentBook.GetRowValue("AuthorId")"> @currentBook.GetRowValue("AuthorName")</a></td>
+                        </CellDisplayTemplate>
+                    </DxGridDataColumn>
+                    
+                    @* Options *@
+                    <DxGridCommandColumn Width="350px" Caption="Options">
+                        <CellDisplayTemplate Context="currentBook">
+                            <DxButton Text="Details" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Details((int)@currentBook.GetRowValue("Id")))/>
+                            <AuthorizeView Roles=@Roles.Administrator>
+                                <DxButton Text="Edit" RenderStyle="ButtonRenderStyle.Warning" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
+                                <DxButton Text="Delete" RenderStyle="ButtonRenderStyle.Danger" SizeMode="SizeMode.Medium" IconCssClass="oi oi-delete" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>
+                            </AuthorizeView>
+                        </CellDisplayTemplate>
+                    </DxGridCommandColumn>
+
+                </Columns>
+            </DxGrid>
+        </div> <br/>
+
+        @foreach(var book in Selected.Cast<BookReadOnlyDto>()) 
+        {
+            <li class="list-group-item bg-transparent text-body py-1 border-0"> <b>Book:</b> <i>@book.Title</i> <b>Author:</b> <i>@book.AuthorName</i></li>
+        }
     }
 }
 
 @code {
     private List<BookReadOnlyDto> Books;
     private Response<List<BookReadOnlyDto>> response = new Response<List<BookReadOnlyDto>>{ Success = true };
+
+    IGrid Grid { get; set; }
+    IReadOnlyList<object> Selected { get; set; } // Selected isn't allowed to be null/empty.
 
     protected override async Task OnInitializedAsync()
     {
@@ -73,6 +110,17 @@ else
         {
             Books = response.Data;
         }
+        Selected = Books.Take(0).ToList(); 
+    }
+
+    private void Details(int bookId)
+    {
+        navManager.NavigateTo($"/books/details/{bookId}");
+    }
+
+    private void Edit(int bookId)
+    {
+        navManager.NavigateTo($"/books/update/{bookId}");
     }
 
     private async Task Delete(int bookId)
@@ -89,5 +137,15 @@ else
                 await OnInitializedAsync();
             }
         }
+    }
+
+    private void PickColumn()
+    {
+        Grid.ShowColumnChooser(".column-chooser-button");
+    }
+
+    private void GoToCreate()
+    {
+        navManager.NavigateTo("/books/create/");
     }
 }
