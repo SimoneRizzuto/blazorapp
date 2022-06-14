@@ -75,6 +75,7 @@
               "BookStoreAppWASM",
               "Clean",
               "Compile",
+              "PushToAzure",
               "Restore",
               "StartApi",
               "StopApi"
@@ -95,6 +96,7 @@
               "BookStoreAppWASM",
               "Clean",
               "Compile",
+              "PushToAzure",
               "Restore",
               "StartApi",
               "StopApi"

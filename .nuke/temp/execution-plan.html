@@ -214,6 +214,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
     },
     function() {
@@ -235,6 +236,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
     },
@@ -258,6 +260,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
         $("#Compile").addClass('highlight');
@@ -291,6 +294,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
         $("#Compile").addClass('highlight');
@@ -324,6 +328,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
         $("#Compile").addClass('highlight');
@@ -357,6 +362,7 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
         $("#Compile").addClass('highlight');
@@ -390,10 +396,59 @@ $(document).ready(function() {
         $("#BookStoreAppServer").removeClass('highlight');
         $("#BookStoreAppWASM").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
+        $("#Clean").addClass('highlight');
+        $("#Restore").addClass('highlight');
+        $("#Compile").addClass('highlight');
+        $("#StartApi").addClass('highlight');
+        $("#BookStoreAppWASM").addClass('highlight');
+        $("#BookStoreAppServer").addClass('highlight');
         $("#StopApi").addClass('highlight');
     },
     function() {
+        $("#Clean").removeClass('highlight');
+        $("#Restore").removeClass('highlight');
+        $("#Compile").removeClass('highlight');
+        $("#StartApi").removeClass('highlight');
+        $("#BookStoreAppWASM").removeClass('highlight');
+        $("#BookStoreAppServer").removeClass('highlight');
         $("#StopApi").removeClass('highlight');
+        $("#Clean").addClass('highlight');
+        $("#Restore").addClass('highlight');
+        $("#Compile").addClass('highlight');
+        $("#StartApi").addClass('highlight');
+        $("#BookStoreAppWASM").addClass('highlight');
+        $("#BookStoreAppServer").addClass('highlight');
+        $("#StopApi").addClass('highlight');
+    });
+  $("#PushToAzure").hover(
+    function() {
+        $("#Clean").removeClass('highlight');
+        $("#Restore").removeClass('highlight');
+        $("#Compile").removeClass('highlight');
+        $("#StartApi").removeClass('highlight');
+        $("#BookStoreAppServer").removeClass('highlight');
+        $("#BookStoreAppWASM").removeClass('highlight');
+        $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
+        $("#Clean").addClass('highlight');
+        $("#Restore").addClass('highlight');
+        $("#Compile").addClass('highlight');
+        $("#StartApi").addClass('highlight');
+        $("#BookStoreAppWASM").addClass('highlight');
+        $("#BookStoreAppServer").addClass('highlight');
+        $("#StopApi").addClass('highlight');
+        $("#PushToAzure").addClass('highlight');
+    },
+    function() {
+        $("#Clean").removeClass('highlight');
+        $("#Restore").removeClass('highlight');
+        $("#Compile").removeClass('highlight');
+        $("#StartApi").removeClass('highlight');
+        $("#BookStoreAppWASM").removeClass('highlight');
+        $("#BookStoreAppServer").removeClass('highlight');
+        $("#StopApi").removeClass('highlight');
+        $("#PushToAzure").removeClass('highlight');
         $("#Clean").addClass('highlight');
         $("#Restore").addClass('highlight');
         $("#Compile").addClass('highlight');
@@ -453,9 +508,10 @@ Compile --> BookStoreAppServer
 Compile --> BookStoreAppWASM
 StartApi --> BookStoreAppServer
 StartApi --> BookStoreAppWASM
-BookStoreAppServer ==> StopApi
-BookStoreAppWASM ==> StopApi
-StopApi
+BookStoreAppServer --> StopApi
+BookStoreAppWASM --> StopApi
+StopApi --> PushToAzure
+PushToAzure
 
 
 linkStyle default interpolate basis

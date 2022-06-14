@@ -1,5 +1,6 @@
 using System;
 using System.IO;
+using System.IO.Compression;
 using System.Linq;
 using Microsoft.AspNetCore.StaticFiles;
 using Nuke.Common;
@@ -44,13 +45,19 @@ class Build : NukeBuild
     [Parameter("Configuration to build - Default is 'Debug' (local) or 'Release' (server)")]
     readonly Configuration Configuration = IsLocalBuild ? Configuration.Debug : Configuration.Release;
 
-    [Solution] readonly Solution Solution;
-    //[GitRepository] readonly GitRepository GitRepository;
+    [Solution(GenerateProjects = true)] readonly Solution Solution;
+    [GitRepository] readonly GitRepository GitRepository;
+
+    AbsolutePath SourceDirectory => RootDirectory / "src";
+    AbsolutePath TestsDirectory => RootDirectory / "tests";
+    AbsolutePath ArtifactsDirectory => RootDirectory / "artifacts";
 
     Target Clean => _ => _
         .Before(Restore)
         .Executes(() =>
         {
+            SourceDirectory.GlobDirectories("**/bin", "**/obj").ForEach(DeleteDirectory);
+            EnsureCleanDirectory(ArtifactsDirectory);
         });
 
     Target Restore => _ => _
@@ -79,9 +86,7 @@ class Build : NukeBuild
             ApiProcess = ProcessTasks.StartProcess("dotnet", "run", RootDirectory / "Book\\BookStoreApp.API");
         })
         .Triggers(BookStoreAppServer, BookStoreAppWASM);
-
     
-
     Target BookStoreAppServer => _ => _
         .DependsOn(Compile, StartApi)
         .Triggers(StopApi)
@@ -110,5 +115,44 @@ class Build : NukeBuild
         {
             ApiProcess.Kill();
         });
-    
+
+    Target PushToAzure => _ => _
+        .DependsOn(StopApi)
+        .Executes(() =>
+        {
+            var projects = new[]
+            {
+                Solution.BookStoreApp_Blazor_Server_UI,
+                Solution.BookStoreApp_Blazor_WebAssembly_UI,
+                Solution.BookStoreApp_API,
+            };
+            var publishConfigurations =
+                from project in projects
+                from framework in project.GetTargetFrameworks()
+                select (project, framework);
+
+            DotNetPublish(_ => _
+                .SetProject(Solution)
+                .SetConfiguration(Configuration)
+                .CombineWith(publishConfigurations, (_, v) => _
+                    .SetProject(v.project)
+                    .SetFramework(v.framework)
+                    .SetOutput(ArtifactsDirectory / v.project.Name)
+                ));
+
+            // Go through each project and Zip files to artifacts folder. Name files according to project
+            EnsureExistingDirectory(ArtifactsDirectory);
+            foreach (var project in projects)
+            {
+                var zipFile = $"{ArtifactsDirectory}/{project.Name}.1.0.0.zip";
+                ZipPublishFolder(zipFile, ArtifactsDirectory / project.Name);
+            }
+        });
+
+    static void ZipPublishFolder(string zipFileToCreate, string folderToPackage,
+        CompressionLevel compressionLevel = CompressionLevel.Optimal)
+    {
+        Logger.Info($"Creating {zipFileToCreate} from {folderToPackage}\\**");
+        ZipFile.CreateFromDirectory(folderToPackage, zipFileToCreate, compressionLevel, false);
+    }
 }
