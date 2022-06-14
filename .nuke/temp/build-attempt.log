@@ -7,3 +7,4 @@ BookStoreAppWASM
 BookStoreAppServer
 StopApi
 Publish
+CreateOctopusDeploy

@@ -4,6 +4,9 @@ obj/
 logs/
 
 # For anything Nuke related
+artifacts/
+.nuke/temp
+
 #.nuke/
 #build/
 #build.cmd
