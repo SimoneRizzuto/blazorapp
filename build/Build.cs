@@ -111,6 +111,7 @@ class Build : NukeBuild
 
     Target StopApi => _ => _
         .DependsOn(BookStoreAppServer, BookStoreAppWASM)
+        .Triggers(PushToAzure)
         .Executes(() =>
         {
             ApiProcess.Kill();
