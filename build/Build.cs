@@ -15,6 +15,7 @@ using Nuke.Common.Tools.DotNet;
 using Nuke.Common.Tools.GitHub;
 using Nuke.Common.Utilities.Collections;
 using Nuke.Common.Tools.GitVersion;
+using Nuke.Common.Tools.Octopus;
 using Octokit;
 using static Nuke.Common.EnvironmentInfo;
 using static Nuke.Common.IO.FileSystemTasks;
@@ -111,14 +112,15 @@ class Build : NukeBuild
 
     Target StopApi => _ => _
         .DependsOn(BookStoreAppServer, BookStoreAppWASM)
-        .Triggers(PushToAzure)
+        .Triggers(Publish)
         .Executes(() =>
         {
             ApiProcess.Kill();
         });
 
-    Target PushToAzure => _ => _
+    Target Publish => _ => _
         .DependsOn(StopApi)
+        .Triggers(CreateOctopusDeploy)
         .Executes(() =>
         {
             var projects = new[]
@@ -156,4 +158,28 @@ class Build : NukeBuild
         Logger.Info($"Creating {zipFileToCreate} from {folderToPackage}\\**");
         ZipFile.CreateFromDirectory(folderToPackage, zipFileToCreate, compressionLevel, false);
     }
+
+    string Version = "1.0.0";
+
+    Target CreateOctopusDeploy => _ => _
+        .DependsOn(Publish)
+        .Executes(() =>
+        {
+            var octopusURL = "https://simorico.octopus.app/";
+            var octopusAPIKey = "API-G6S2M4PYQVOAMNOCDXNYLZCHSUDQKO";
+            var projects = new[]
+            {
+                Solution.BookStoreApp_Blazor_Server_UI,
+                Solution.BookStoreApp_Blazor_WebAssembly_UI,
+                Solution.BookStoreApp_API,
+            };
+            // Push all the projects to chosen Octopus URL with API key
+            OctopusTasks.OctopusPush(_ => _
+                .SetApiKey(octopusAPIKey)
+                .SetServer(octopusURL)
+                .SetPackage(projects.Select(zz => $"{ArtifactsDirectory}/{zz.Name}.{Version}.zip"))
+                .SetReplaceExisting(true)
+            );
+        });
+
 }

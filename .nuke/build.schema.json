@@ -75,7 +75,8 @@
               "BookStoreAppWASM",
               "Clean",
               "Compile",
-              "PushToAzure",
+              "CreateOctopusDeploy",
+              "Publish",
               "Restore",
               "StartApi",
               "StopApi"
@@ -96,7 +97,8 @@
               "BookStoreAppWASM",
               "Clean",
               "Compile",
-              "PushToAzure",
+              "CreateOctopusDeploy",
+              "Publish",
               "Restore",
               "StartApi",
               "StopApi"
