@@ -2,3 +2,10 @@
 bin/
 obj/
 logs/
+
+# For anything Nuke related
+.nuke/
+build/
+build.cmd
+build.ps1
+build.sh

@@ -24,35 +24,38 @@
             <InputText @bind-Value="Author.Bio" class="form-control" id="bio"/>
             <ValidationMessage For="@(() => Author.Bio)"/>
         </div>
-        <br/>
-        @if (Author.Books == null || !Author.Books.Any())
-        {
-            <div class="alert alert-dismissible alert-secondary">
-                No books available for this author...
-            </div>
-        }
-        else
-        {
-            <div class="row">
-                @foreach (var book in Author.Books)
-                {
-                    <div class="col-3">
-                        <div class="card" style="width: 18rem;">
-                           
-                            <img src="@book.Image" class="card-img-top" alt="@book.Title" style="width: 286px; height: 164px"/>
-                            
-                            <div class="card-body">
-                                <h5 class="card-title">@book.Title</h5>
-                                <p class="card-test">$@book.Price</p>
-                                <a hrf="#" class="btn btn-primary">View Book</a>
-                            </div>
+    <br/>
+    </fieldset>
+    @if (Author.Books == null || !Author.Books.Any())
+    {
+        <div class="alert alert-dismissible alert-secondary">
+            No books available for this author...
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var book in Author.Books)
+            {
+                <div class="col-3" style="max-width: 1000px">
+                    <div class="card" style="max-width: 18rem;">
+                       
+                        <img src="@book.Image" class="card-img-top" alt="@book.Title" style="max-width: 286px; height: 164px"/>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-test">$@book.Price</p>
+                            <DxButton Text="View Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" @onclick=@(() => GoToBookDetails((int)@book.Id))/>
                         </div>
                     </div>
-                }
-            </div>
-        }
-        <br/>
-    </fieldset>
+                    <br/>
+                </div>
+                
+            }
+        </div>
+    }
+    <br/>
+    
 </EditForm>  
     
     
@@ -83,6 +86,11 @@
         {
             Author = response.Data;
         }
+    }
+
+    private void GoToBookDetails(int id)
+    {
+        navManager.NavigateTo($"/books/details/{id}");
     }
 
     private void BackToList()

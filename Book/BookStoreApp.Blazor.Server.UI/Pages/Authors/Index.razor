@@ -11,6 +11,9 @@
     .my-class {
         width: 500px;
     }
+    .oi oi-plus {
+        width: 16px
+    }
 </style>
 
 @if (response.Success == false)
@@ -31,14 +34,14 @@ else
     {
         <div>
             <AuthorizeView Roles=@Roles.Administrator>
-                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
-                      Click="@GoToCreate" />
+                <DxButton Text="Create Author" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
+                          Click="@GoToCreate" ></DxButton>
             </AuthorizeView>
         </div><br/>
 
         <div>
             <DxButton Text="Column Selecter (Filter)" RenderStyle="ButtonRenderStyle.Dark" SizeMode="SizeMode.Small" CssClass="column-chooser-button" 
-                      Click="@PickColumn"/>
+                      Click="@PickColumn"/> 
             <br/>
         </div>
 

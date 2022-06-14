@@ -9,12 +9,16 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreApp.Blazor.Server.
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "BookStoreApp.Blazor.WebAssembly.UI", "BookStoreApp.Blazor.WebAssembly.UI\BookStoreApp.Blazor.WebAssembly.UI.csproj", "{0FDADFD7-C24C-4E83-A260-FB84CE0C58A6}"
 EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "_build", "..\build\_build.csproj", "{5FBAC270-9E5F-4AE0-8718-75F39E0ACC90}"
+EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
 		Debug|Any CPU = Debug|Any CPU
 		Release|Any CPU = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(ProjectConfigurationPlatforms) = postSolution
+		{5FBAC270-9E5F-4AE0-8718-75F39E0ACC90}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{5FBAC270-9E5F-4AE0-8718-75F39E0ACC90}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{4A4E986D-CF05-49C6-B2AF-968E2292014D}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
 		{4A4E986D-CF05-49C6-B2AF-968E2292014D}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{4A4E986D-CF05-49C6-B2AF-968E2292014D}.Release|Any CPU.ActiveCfg = Release|Any CPU

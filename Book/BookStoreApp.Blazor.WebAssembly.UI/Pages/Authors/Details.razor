@@ -23,35 +23,36 @@
             <InputText @bind-Value="Author.Bio" class="form-control" id="bio"/>
             <ValidationMessage For="@(() => Author.Bio)"/>
         </div>
-        <br/>
-        @if (Author.Books == null || !Author.Books.Any())
-        {
-            <div class="alert alert-dismissible alert-secondary">
-                No books available for this author...
-            </div>
-        }
-        else
-        {
-            <div class="row">
-                @foreach (var book in Author.Books)
-                {
-                    <div class="col-3">
-                        <div class="card" style="width: 18rem;">
-                            
-                            <img src="@book.Image" class="card-img-top" alt="@book.Title" style="width: 286px; height: 164px"/>
-                            
-                            <div class="card-body">
-                                <h5 class="card-title">@book.Title</h5>
-                                <p class="card-test">$@book.Price</p>
-                                <a hrf="#" class="btn btn-primary">View Book</a>
-                            </div>
+    <br/>
+    </fieldset>
+    @if (Author.Books == null || !Author.Books.Any())
+    {
+        <div class="alert alert-dismissible alert-secondary">
+            No books available for this author...
+        </div>
+    }
+    else
+    {
+        <div class="row">
+            @foreach (var book in Author.Books)
+            {
+                <div class="col-3">
+                    <div class="card" style="max-width: 18rem;">
+                        
+                        <img src="@book.Image" class="card-img-top" alt="@book.Title" style="max-width: 286px; height: 164px"/>
+                        
+                        <div class="card-body">
+                            <h5 class="card-title">@book.Title</h5>
+                            <p class="card-test">$@book.Price</p>
+                            <a href="/books/details/@book.Id" class="btn btn-primary">View Book</a>
                         </div>
                     </div>
-                }
-            </div>
-        }
-        <br/>
-    </fieldset>
+                    <br/>
+                </div>
+            }
+        </div>
+    }
+    <br/>
 </EditForm>   
     
     
