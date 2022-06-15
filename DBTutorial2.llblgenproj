@@ -1,0 +1,530 @@
+﻿<?xml version="1.0" encoding="utf-8"?>
+<!--LLBLGen Pro v5.9 project file. Do not manually edit this file. Incorrect references could lead to an unloadable project file.-->
+<Project Version="5.9" TargetFrameworkName="LLBLGen Pro Runtime Framework" UseLegacyDefaults="false">
+  <Properties>
+    <Abbreviations />
+    <Property Name="AdditionalTaskPerformerFolder" Value="" />
+    <Property Name="AdditionalTasksFolder" Value="" />
+    <Property Name="AdditionalTemplatesFolder" Value="" />
+    <Property Name="AdditionalTypeConverterFolder" Value="" />
+    <Property Name="AddNewElementsAfterRefresh_v5" Value="false" />
+    <Property Name="AddNewElementsAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="AddNewFieldsAfterRefresh_v5" Value="true" />
+    <Property Name="AddNewFieldsAfterRelationalModelDataSync_v5" Value="true" />
+    <Property Name="AddNewViewsAsEntitiesAfterRefresh_v5" Value="false" />
+    <Property Name="AddNewViewsAsEntitiesAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="AutoAddManyToManyRelationships" Value="false" />
+    <Property Name="AutoAssignSequencesToIntegerPks" Value="true" />
+    <Property Name="AutoAssignTypeConverterToFieldMapping" Value="true" />
+    <Property Name="AutomaticallyGenerateSourceCodeOnProjectSave" Value="false" />
+    <Property Name="ConnectionStringKeyNamePattern" Value="ConnectionString.{$ProviderName}" />
+    <Property Name="DefaultDDLSQLScriptDestinationFolder" Value=".\DDLSQLScripts" />
+    <Property Name="DefaultDeleteRuleAction" Value="1" />
+    <Property Name="DefaultSourceCodeDestinationFolder" Value=".\Code" />
+    <Property Name="DefaultUpdateRuleAction" Value="0" />
+    <Property Name="DeleteObsoleteFiles" Value="true" />
+    <Property Name="ElementNamePrefixPattern" Value="{$SchemaName}" />
+    <Property Name="ElementNamePrefixPatternIsAppliedWhen" Value="1" />
+    <Property Name="EncodingToUse" Value="0" />
+    <Property Name="EntityActionCombinationDefaultForTable" Value="0" />
+    <Property Name="EntityActionCombinationDefaultForView" Value="4" />
+    <Property Name="EntityFieldNameStripPattern" Value="{}{}" />
+    <Property Name="EntityNameStripPattern" Value="{tbl_}{}" />
+    <Property Name="ExcludableOrphanedElementDetectedAction" Value="3" />
+    <Property Name="FailCodeGenerationOnWriteError" Value="false" />
+    <Property Name="FieldMappedOntoRelatedFieldPattern" Value="{$RelatedFieldName}" />
+    <Property Name="FkFieldsAreNamedAfterTargetField" Value="true" />
+    <Property Name="ForeignKeyConstraintPattern" Value="FK_{$Guid}" />
+    <Property Name="ForeignKeyFieldPattern" Value="{$NavigatorName}{$RelatedFieldName}" />
+    <Property Name="GroupUsage" Value="0" />
+    <Property Name="IdentifyingFieldsFollowDBPrimaryKeyConstraints_v5" Value="true" />
+    <Property Name="InsertUnderscoreAtWordBreakCaseInsensitiveDBs" Value="false" />
+    <Property Name="InsertUnderscoreAtWordBreakCaseSensitiveDBs" Value="false" />
+    <Property Name="LengthPrecisionScaleFollowDBLengthPrecisionScale_v5" Value="true" />
+    <Property Name="MakeElementNamePascalCasing" Value="true" />
+    <Property Name="NavigatorMappedOntoManyToManyPattern" Value="{$EndEntityName}CollectionVia{$IntermediateEntityName$S}" />
+    <Property Name="NavigatorMappedOntoOneManyToOnePattern" Value="{$EndEntityName$S}" />
+    <Property Name="NavigatorMappedOntoOneToManyPattern" Value="{$EndEntityName$P}" />
+    <Property Name="NonExcludableOrphanedElementDetectedAction" Value="3" />
+    <Property Name="PreferDecimalOverCurrencyTypes" Value="true" />
+    <Property Name="PreferNaturalCharacterTypes" Value="true" />
+    <Property Name="PreferSystemSequencesOverSchemaSequencesIfApplicable" Value="true" />
+    <Property Name="PreferVariableLengthTypes" Value="true" />
+    <Property Name="PrimaryKeyConstraintPattern" Value="PK_{$Guid}" />
+    <Property Name="ProjectCreator" Value="Simone" />
+    <Property Name="ProjectName" Value="DBTutorial2" />
+    <Property Name="ReflectNullabilityOfElementFieldInTargetField_v5" Value="false" />
+    <Property Name="ReflectTypeOfElementFieldInTargetField_v5" Value="true" />
+    <Property Name="RelationalModelDataElementNameCasingCaseInsensitiveDBs" Value="3" />
+    <Property Name="RelationalModelDataElementNameCasingCaseSensitiveDBs" Value="3" />
+    <Property Name="RelationshipsFollowDBForeignKeyConstraints_v5" Value="true" />
+    <Property Name="RemoveUnderscoresFromElementName" Value="true" />
+    <Property Name="RemoveUnmappedElementsAfterRefresh_v5" Value="false" />
+    <Property Name="RemoveUnmappedElementsAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="ResetFieldOrderBasedOnTargetOrderAtRefresh" Value="false" />
+    <Property Name="ResetFieldOrderBasedOnTargetOrderAtRelationalModelDataSync" Value="false" />
+    <Property Name="RetrieveDBCustomProperties" Value="false" />
+    <Property Name="RootNamespace" Value="" />
+    <Property Name="SequenceNameMatchingPattern" Value="SEQ_{$TableName}" />
+    <Property Name="SequencePattern" Value="SEQ_{$EntityName}" />
+    <Property Name="SetGroupNameAfterSchemaName" Value="true" />
+    <Property Name="SetSchemaNameAfterGroupName" Value="true" />
+    <Property Name="SingularizeElementNames" Value="true" />
+    <Property Name="StoredProcNameStripPattern" Value="{pr_, sp_}{}" />
+    <Property Name="StoreTimeLastGeneratedIntoProject" Value="false" />
+    <Property Name="StoreTimeLastSyncIntoProject" Value="true" />
+    <Property Name="SyncCustomFieldOrderingWithTableFieldIndex" Value="false" />
+    <Property Name="SyncMappedElementNamesAfterRefresh_v5" Value="false" />
+    <Property Name="SyncMappedElementNamesAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="SyncRelationalModelDataElementNameWithModelElementName_v5" Value="false" />
+    <Property Name="SyncRenamedMappedElementNamesAfterRefresh_v5" Value="false" />
+    <Property Name="SyncRenamedMappedElementNamesAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="TableValuedFunctionNameStripPattern" Value="{fn_, pr_, sp_}{}" />
+    <Property Name="TargetPerEntityEdgesRequireBackingFkConstraint" Value="true" />
+    <Property Name="TypedViewFieldNameStripPattern" Value="{}{}" />
+    <Property Name="TypedViewMappedOnResultsetPattern" Value="{$ProcFunctionName}{$ResultsetName}Result" />
+    <Property Name="TypedViewNameStripPattern" Value="{vw_}{}" />
+    <Property Name="UniqueConstraintPattern" Value="UC_{$Guid}" />
+    <Property Name="UniqueConstraintsFollowDBUniqueConstraints_v5" Value="true" />
+    <Property Name="UpdateCustomPropertiesAfterRefresh_v5" Value="false" />
+    <Property Name="UpdateCustomPropertiesAfterRelationalModelDataSync_v5" Value="false" />
+    <Property Name="UseCustomFieldOrderingOnNewElements" Value="false" />
+  </Properties>
+  <TypeShortcuts />
+  <IgnoredWarnings />
+  <SavedSearchQueries />
+  <CodeGenerationCyclePreferences>
+    <OutputType Value="3">
+      <LastUsedPreferences>
+        <DestinationRootFolder Value="G:\Work Folder\Healthline Job\BlazorProject\Book\DataLayer" />
+        <FrameworkName Value="LLBLGen Pro Runtime Framework" />
+        <LanguageName Value="C#" />
+        <PlatformName Value=".NET Standard 2.1" />
+        <PresetName Value="SD.Presets.Adapter.General.Netstandard" />
+        <RootNamespace Value="DL" />
+        <TemplateGroup Value="Adapter" />
+        <TemplateBindings>
+          <Binding Name="SD.TemplateBindings.SharedTemplates.Netstandard21" />
+          <Binding Name="SD.TemplateBindings.SharedTemplates" />
+          <Binding Name="SD.TemplateBindings.SqlServerSpecific" />
+          <Binding Name="SD.TemplateBindings.General" />
+        </TemplateBindings>
+        <AdhocTemplateSets />
+      </LastUsedPreferences>
+    </OutputType>
+  </CodeGenerationCyclePreferences>
+  <CodeGenerationMetaDataDefaults>
+    <TargetElement Type="256">
+      <Defaults>
+        <Attributes>
+          <Attribute Value="Browsable($false)" />
+        </Attributes>
+      </Defaults>
+    </TargetElement>
+  </CodeGenerationMetaDataDefaults>
+  <EntityModel>
+    <ValueTypeDefinitions />
+    <EntityDefinitions>
+      <EntityDefinition Name="AspNetRole" ObjectID="a9957ecc-92f5-4195-b500-521f15655740">
+        <Fields>
+          <Field Name="ConcurrencyStamp" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="Id" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="Name" Type="string" IsOptional="true" MaxLength="256" />
+          <Field Name="NormalizedName" Type="string" IsOptional="true" MaxLength="256" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetRoleClaim" ObjectID="4476116f-8cc9-43ba-85ba-fbbc27c2198a">
+        <Fields>
+          <Field Name="ClaimType" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="ClaimValue" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="RoleId" Type="string" MaxLength="450" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetUser" ObjectID="c5f52883-a234-4395-b47e-3ffdf6d623af">
+        <Fields>
+          <Field Name="AccessFailedCount" Type="int" Precision="10" />
+          <Field Name="ConcurrencyStamp" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="Email" Type="string" IsOptional="true" MaxLength="256" />
+          <Field Name="EmailConfirmed" Type="bool" />
+          <Field Name="FirstName" Type="string" MaxLength="2147483647" />
+          <Field Name="Id" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="LastName" Type="string" MaxLength="2147483647" />
+          <Field Name="LockoutEnabled" Type="bool" />
+          <Field Name="LockoutEnd" Type="datetimeoffset" IsOptional="true" />
+          <Field Name="NormalizedEmail" Type="string" IsOptional="true" MaxLength="256" />
+          <Field Name="NormalizedUserName" Type="string" IsOptional="true" MaxLength="256" />
+          <Field Name="PasswordHash" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="PhoneNumber" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="PhoneNumberConfirmed" Type="bool" />
+          <Field Name="SecurityStamp" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="TwoFactorEnabled" Type="bool" />
+          <Field Name="UserName" Type="string" IsOptional="true" MaxLength="256" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetUserClaim" ObjectID="64530658-61b7-43f4-9a20-353d70291a34">
+        <Fields>
+          <Field Name="ClaimType" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="ClaimValue" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="UserId" Type="string" MaxLength="450" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetUserLogin" ObjectID="27238218-1387-4888-9220-e2c6a17d32d2">
+        <Fields>
+          <Field Name="LoginProvider" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="ProviderDisplayName" Type="string" IsOptional="true" MaxLength="2147483647" />
+          <Field Name="ProviderKey" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="UserId" Type="string" MaxLength="450" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetUserRole" ObjectID="346554ef-8434-4fce-874a-7fa5312193c8">
+        <Fields>
+          <Field Name="RoleId" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="UserId" Type="string" MaxLength="450" IsPrimaryKey="true" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="AspNetUserToken" ObjectID="a614f6b2-f415-489d-9fc1-86d74463e984">
+        <Fields>
+          <Field Name="LoginProvider" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="Name" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="UserId" Type="string" MaxLength="450" IsPrimaryKey="true" />
+          <Field Name="Value" Type="string" IsOptional="true" MaxLength="2147483647" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Author" ObjectID="6b50a9ab-520c-453d-9db6-dfa941578de9">
+        <Fields>
+          <Field Name="Bio" Type="string" IsOptional="true" MaxLength="250" />
+          <Field Name="FirstName" Type="string" IsOptional="true" MaxLength="50" />
+          <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="LastName" Type="string" IsOptional="true" MaxLength="50" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="Book" ObjectID="b13114cc-86c4-41f6-be84-dfd5cb1adf90">
+        <Fields>
+          <Field Name="AuthorId" Type="int" IsOptional="true" Precision="10" />
+          <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
+          <Field Name="Image" Type="string" IsOptional="true" MaxLength="250" />
+          <Field Name="Isbn" Type="string" MaxLength="50" />
+          <Field Name="Price" Type="decimal" IsOptional="true" Precision="18" Scale="2" />
+          <Field Name="Summary" Type="string" IsOptional="true" MaxLength="250" />
+          <Field Name="Title" Type="string" IsOptional="true" MaxLength="50" />
+          <Field Name="Year" Type="int" IsOptional="true" Precision="10" />
+        </Fields>
+      </EntityDefinition>
+      <EntityDefinition Name="EfmigrationsHistory" ObjectID="5837c835-24c1-4875-9d7d-b52e646d91fa">
+        <Fields>
+          <Field Name="MigrationId" Type="string" MaxLength="150" IsPrimaryKey="true" />
+          <Field Name="ProductVersion" Type="string" MaxLength="32" />
+        </Fields>
+      </EntityDefinition>
+    </EntityDefinitions>
+    <Relationships>
+      <NormalRelationship Name="AspNetRoleClaim.AspNetRole-AspNetRole.AspNetRoleClaims" Start=":AspNetRoleClaim" End=":AspNetRole" StartNavigator="AspNetRole" EndNavigator="AspNetRoleClaims" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="RoleId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="AspNetUserClaim.AspNetUser-AspNetUser.AspNetUserClaims" Start=":AspNetUserClaim" End=":AspNetUser" StartNavigator="AspNetUser" EndNavigator="AspNetUserClaims" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="UserId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="AspNetUserLogin.AspNetUser-AspNetUser.AspNetUserLogins" Start=":AspNetUserLogin" End=":AspNetUser" StartNavigator="AspNetUser" EndNavigator="AspNetUserLogins" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="UserId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="AspNetUserRole.AspNetRole-AspNetRole.AspNetUserRoles" Start=":AspNetUserRole" End=":AspNetRole" StartNavigator="AspNetRole" EndNavigator="AspNetUserRoles" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="RoleId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="AspNetUserRole.AspNetUser-AspNetUser.AspNetUserRoles" Start=":AspNetUserRole" End=":AspNetUser" StartNavigator="AspNetUser" EndNavigator="AspNetUserRoles" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="UserId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="AspNetUserToken.AspNetUser-AspNetUser.AspNetUserTokens" Start=":AspNetUserToken" End=":AspNetUser" StartNavigator="AspNetUser" EndNavigator="AspNetUserTokens" Type="4" DeleteRuleAction="1">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="UserId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+      <NormalRelationship Name="Book.Author-Author.Books" Start=":Book" End=":Author" StartNavigator="Author" EndNavigator="Books" Type="4" EndIsOptional="true">
+        <FieldRelationships>
+          <FieldFieldRelationship FkField="AuthorId" PkField="Id" />
+        </FieldRelationships>
+      </NormalRelationship>
+    </Relationships>
+    <InheritanceHierarchies />
+  </EntityModel>
+  <TargetDatabases>
+    <TargetDatabase Type="2D18D138-1DD2-467E-86CC-4838250611AE" SyncSource="2">
+      <ConnectionElements>
+        <ConnectionElement Name="ServerName" Value=".\MSSQLSERVER01" />
+        <ConnectionElement Name="CatalogName" Value="master" />
+        <ConnectionElement Name="UseWindowsAuthentication" Value="true" />
+        <ConnectionElement Name="UserID" Value="" />
+        <ConnectionElement Name="Password" Value="" />
+      </ConnectionElements>
+      <SystemSequences>
+        <Sequence Name="SCOPE_IDENTITY()" />
+        <Sequence Name="@@IDENTITY" />
+      </SystemSequences>
+      <Catalogs>
+        <Catalog Name="BookStoreDB" SyncSource="2">
+          <Schemas>
+            <Schema Name="dbo" SyncSource="2" LastSyncWithDatabase="2022-06-15T04:18:52.6049846Z">
+              <Tables>
+                <Table Name="__EFMigrationsHistory">
+                  <PkConstraintName Name="PK___EFMigrationsHistory" />
+                  <Fields>
+                    <Field Name="MigrationId" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="150" />
+                    <Field Name="ProductVersion" Ordinal="2" DbType="12" Length="32" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetRoleClaims">
+                  <PkConstraintName Name="PK_AspNetRoleClaims" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="RoleId" Ordinal="2" DbType="12" Length="450" />
+                    <Field Name="ClaimType" Ordinal="3" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="ClaimValue" Ordinal="4" IsOptional="true" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetRoles">
+                  <PkConstraintName Name="PK_AspNetRoles" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="Name" Ordinal="2" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="NormalizedName" Ordinal="3" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="ConcurrencyStamp" Ordinal="4" IsOptional="true" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetUserClaims">
+                  <PkConstraintName Name="PK_AspNetUserClaims" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="UserId" Ordinal="2" DbType="12" Length="450" />
+                    <Field Name="ClaimType" Ordinal="3" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="ClaimValue" Ordinal="4" IsOptional="true" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetUserLogins">
+                  <PkConstraintName Name="PK_AspNetUserLogins" />
+                  <Fields>
+                    <Field Name="LoginProvider" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="ProviderKey" Ordinal="2" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="ProviderDisplayName" Ordinal="3" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="UserId" Ordinal="4" DbType="12" Length="450" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetUserRoles">
+                  <PkConstraintName Name="PK_AspNetUserRoles" />
+                  <Fields>
+                    <Field Name="UserId" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="RoleId" Ordinal="2" IsPrimaryKey="true" DbType="12" Length="450" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetUsers">
+                  <PkConstraintName Name="PK_AspNetUsers" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="UserName" Ordinal="2" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="NormalizedUserName" Ordinal="3" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="Email" Ordinal="4" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="NormalizedEmail" Ordinal="5" IsOptional="true" DbType="12" Length="256" />
+                    <Field Name="EmailConfirmed" Ordinal="6" DbType="2" />
+                    <Field Name="PasswordHash" Ordinal="7" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="SecurityStamp" Ordinal="8" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="ConcurrencyStamp" Ordinal="9" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="PhoneNumber" Ordinal="10" IsOptional="true" DbType="12" Length="2147483647" />
+                    <Field Name="PhoneNumberConfirmed" Ordinal="11" DbType="2" />
+                    <Field Name="TwoFactorEnabled" Ordinal="12" DbType="2" />
+                    <Field Name="LockoutEnd" Ordinal="13" IsOptional="true" DbType="30" />
+                    <Field Name="LockoutEnabled" Ordinal="14" DbType="2" />
+                    <Field Name="AccessFailedCount" Ordinal="15" DbType="8" Precision="10" />
+                    <Field Name="FirstName" Ordinal="16" HasDefaultValue="true" DefaultValue="N''" DbType="12" Length="2147483647" />
+                    <Field Name="LastName" Ordinal="17" HasDefaultValue="true" DefaultValue="N''" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="AspNetUserTokens">
+                  <PkConstraintName Name="PK_AspNetUserTokens" />
+                  <Fields>
+                    <Field Name="UserId" Ordinal="1" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="LoginProvider" Ordinal="2" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="Name" Ordinal="3" IsPrimaryKey="true" DbType="12" Length="450" />
+                    <Field Name="Value" Ordinal="4" IsOptional="true" DbType="12" Length="2147483647" />
+                  </Fields>
+                </Table>
+                <Table Name="Authors">
+                  <PkConstraintName Name="PK__Authors__3214EC07C5879650" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="FirstName" Ordinal="2" IsOptional="true" DbType="12" Length="50" />
+                    <Field Name="LastName" Ordinal="3" IsOptional="true" DbType="12" Length="50" />
+                    <Field Name="Bio" Ordinal="4" IsOptional="true" DbType="10" Length="250" />
+                  </Fields>
+                </Table>
+                <Table Name="Books">
+                  <PkConstraintName Name="PK__Books__3214EC0744E68074" />
+                  <Fields>
+                    <Field Name="Id" Ordinal="1" IsIdentity="true" IsPrimaryKey="true" DbType="8" Precision="10" />
+                    <Field Name="Title" Ordinal="2" IsOptional="true" DbType="12" Length="50" />
+                    <Field Name="Year" Ordinal="3" IsOptional="true" DbType="8" Precision="10" />
+                    <Field Name="ISBN" Ordinal="4" DbType="12" Length="50" />
+                    <Field Name="Summary" Ordinal="5" IsOptional="true" DbType="12" Length="250" />
+                    <Field Name="Image" Ordinal="6" IsOptional="true" DbType="12" Length="250" />
+                    <Field Name="Price" Ordinal="7" IsOptional="true" DbType="5" Precision="18" Scale="2" />
+                    <Field Name="AuthorId" Ordinal="8" IsOptional="true" DbType="8" Precision="10" />
+                  </Fields>
+                </Table>
+              </Tables>
+            </Schema>
+          </Schemas>
+          <ForeignKeyConstraints>
+            <ForeignKeyConstraint Name="dbo:AspNetRoleClaims:FK_AspNetRoleClaims_AspNetRoles_RoleId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetRoles:Id" FkField="dbo:AspNetRoleClaims:RoleId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:AspNetUserClaims:FK_AspNetUserClaims_AspNetUsers_UserId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetUsers:Id" FkField="dbo:AspNetUserClaims:UserId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:AspNetUserLogins:FK_AspNetUserLogins_AspNetUsers_UserId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetUsers:Id" FkField="dbo:AspNetUserLogins:UserId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:AspNetUserRoles:FK_AspNetUserRoles_AspNetRoles_RoleId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetRoles:Id" FkField="dbo:AspNetUserRoles:RoleId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:AspNetUserRoles:FK_AspNetUserRoles_AspNetUsers_UserId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetUsers:Id" FkField="dbo:AspNetUserRoles:UserId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:AspNetUserTokens:FK_AspNetUserTokens_AspNetUsers_UserId" DeleteRuleAction="1">
+              <FieldPairs>
+                <FieldPair PkField="dbo:AspNetUsers:Id" FkField="dbo:AspNetUserTokens:UserId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+            <ForeignKeyConstraint Name="dbo:Books:FK_Books_ToTable">
+              <FieldPairs>
+                <FieldPair PkField="dbo:Authors:Id" FkField="dbo:Books:AuthorId" />
+              </FieldPairs>
+            </ForeignKeyConstraint>
+          </ForeignKeyConstraints>
+        </Catalog>
+      </Catalogs>
+    </TargetDatabase>
+  </TargetDatabases>
+  <MappingStores>
+    <MappingStore Type="2D18D138-1DD2-467E-86CC-4838250611AE">
+      <EntityMappings>
+        <EntityMapping EntityName=":AspNetRole" TargetName="BookStoreDB:dbo:AspNetRoles">
+          <FieldMappings>
+            <FieldMapping FieldName="ConcurrencyStamp" TargetFieldName="ConcurrencyStamp" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" />
+            <FieldMapping FieldName="Name" TargetFieldName="Name" />
+            <FieldMapping FieldName="NormalizedName" TargetFieldName="NormalizedName" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetRoleClaim" TargetName="BookStoreDB:dbo:AspNetRoleClaims">
+          <FieldMappings>
+            <FieldMapping FieldName="ClaimType" TargetFieldName="ClaimType" />
+            <FieldMapping FieldName="ClaimValue" TargetFieldName="ClaimValue" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="RoleId" TargetFieldName="RoleId" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetUser" TargetName="BookStoreDB:dbo:AspNetUsers">
+          <FieldMappings>
+            <FieldMapping FieldName="AccessFailedCount" TargetFieldName="AccessFailedCount" />
+            <FieldMapping FieldName="ConcurrencyStamp" TargetFieldName="ConcurrencyStamp" />
+            <FieldMapping FieldName="Email" TargetFieldName="Email" />
+            <FieldMapping FieldName="EmailConfirmed" TargetFieldName="EmailConfirmed" />
+            <FieldMapping FieldName="FirstName" TargetFieldName="FirstName" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" />
+            <FieldMapping FieldName="LastName" TargetFieldName="LastName" />
+            <FieldMapping FieldName="LockoutEnabled" TargetFieldName="LockoutEnabled" />
+            <FieldMapping FieldName="LockoutEnd" TargetFieldName="LockoutEnd" />
+            <FieldMapping FieldName="NormalizedEmail" TargetFieldName="NormalizedEmail" />
+            <FieldMapping FieldName="NormalizedUserName" TargetFieldName="NormalizedUserName" />
+            <FieldMapping FieldName="PasswordHash" TargetFieldName="PasswordHash" />
+            <FieldMapping FieldName="PhoneNumber" TargetFieldName="PhoneNumber" />
+            <FieldMapping FieldName="PhoneNumberConfirmed" TargetFieldName="PhoneNumberConfirmed" />
+            <FieldMapping FieldName="SecurityStamp" TargetFieldName="SecurityStamp" />
+            <FieldMapping FieldName="TwoFactorEnabled" TargetFieldName="TwoFactorEnabled" />
+            <FieldMapping FieldName="UserName" TargetFieldName="UserName" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetUserClaim" TargetName="BookStoreDB:dbo:AspNetUserClaims">
+          <FieldMappings>
+            <FieldMapping FieldName="ClaimType" TargetFieldName="ClaimType" />
+            <FieldMapping FieldName="ClaimValue" TargetFieldName="ClaimValue" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="UserId" TargetFieldName="UserId" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetUserLogin" TargetName="BookStoreDB:dbo:AspNetUserLogins">
+          <FieldMappings>
+            <FieldMapping FieldName="LoginProvider" TargetFieldName="LoginProvider" />
+            <FieldMapping FieldName="ProviderDisplayName" TargetFieldName="ProviderDisplayName" />
+            <FieldMapping FieldName="ProviderKey" TargetFieldName="ProviderKey" />
+            <FieldMapping FieldName="UserId" TargetFieldName="UserId" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetUserRole" TargetName="BookStoreDB:dbo:AspNetUserRoles">
+          <FieldMappings>
+            <FieldMapping FieldName="RoleId" TargetFieldName="RoleId" />
+            <FieldMapping FieldName="UserId" TargetFieldName="UserId" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":AspNetUserToken" TargetName="BookStoreDB:dbo:AspNetUserTokens">
+          <FieldMappings>
+            <FieldMapping FieldName="LoginProvider" TargetFieldName="LoginProvider" />
+            <FieldMapping FieldName="Name" TargetFieldName="Name" />
+            <FieldMapping FieldName="UserId" TargetFieldName="UserId" />
+            <FieldMapping FieldName="Value" TargetFieldName="Value" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":Author" TargetName="BookStoreDB:dbo:Authors">
+          <FieldMappings>
+            <FieldMapping FieldName="Bio" TargetFieldName="Bio" />
+            <FieldMapping FieldName="FirstName" TargetFieldName="FirstName" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="LastName" TargetFieldName="LastName" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":Book" TargetName="BookStoreDB:dbo:Books">
+          <FieldMappings>
+            <FieldMapping FieldName="AuthorId" TargetFieldName="AuthorId" />
+            <FieldMapping FieldName="Id" TargetFieldName="Id" SequenceToUse="SCOPE_IDENTITY()" />
+            <FieldMapping FieldName="Image" TargetFieldName="Image" />
+            <FieldMapping FieldName="Isbn" TargetFieldName="ISBN" />
+            <FieldMapping FieldName="Price" TargetFieldName="Price" />
+            <FieldMapping FieldName="Summary" TargetFieldName="Summary" />
+            <FieldMapping FieldName="Title" TargetFieldName="Title" />
+            <FieldMapping FieldName="Year" TargetFieldName="Year" />
+          </FieldMappings>
+        </EntityMapping>
+        <EntityMapping EntityName=":EfmigrationsHistory" TargetName="BookStoreDB:dbo:__EFMigrationsHistory">
+          <FieldMappings>
+            <FieldMapping FieldName="MigrationId" TargetFieldName="MigrationId" />
+            <FieldMapping FieldName="ProductVersion" TargetFieldName="ProductVersion" />
+          </FieldMappings>
+        </EntityMapping>
+      </EntityMappings>
+      <TypedViewMappings />
+      <SPCallMappings />
+      <TvfCallMappings />
+      <TypeConversionDefinitions />
+    </MappingStore>
+  </MappingStores>
+  <ModelViews />
+</Project>
