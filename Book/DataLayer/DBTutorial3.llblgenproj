@@ -52,7 +52,7 @@
     <Property Name="PreferVariableLengthTypes" Value="true" />
     <Property Name="PrimaryKeyConstraintPattern" Value="PK_{$Guid}" />
     <Property Name="ProjectCreator" Value="Simone" />
-    <Property Name="ProjectName" Value="DBTutorial2" />
+    <Property Name="ProjectName" Value="DBTutorial3" />
     <Property Name="ReflectNullabilityOfElementFieldInTargetField_v5" Value="false" />
     <Property Name="ReflectTypeOfElementFieldInTargetField_v5" Value="true" />
     <Property Name="RelationalModelDataElementNameCasingCaseInsensitiveDBs" Value="3" />
@@ -125,7 +125,7 @@
   <EntityModel>
     <ValueTypeDefinitions />
     <EntityDefinitions>
-      <EntityDefinition Name="AspNetRole" ObjectID="a9957ecc-92f5-4195-b500-521f15655740">
+      <EntityDefinition Name="AspNetRole" ObjectID="237815c0-babb-4da6-9d06-7385f63cbfd5">
         <Fields>
           <Field Name="ConcurrencyStamp" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="Id" Type="string" MaxLength="450" IsPrimaryKey="true" />
@@ -133,7 +133,7 @@
           <Field Name="NormalizedName" Type="string" IsOptional="true" MaxLength="256" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetRoleClaim" ObjectID="4476116f-8cc9-43ba-85ba-fbbc27c2198a">
+      <EntityDefinition Name="AspNetRoleClaim" ObjectID="4ee5edda-7ea7-4f1f-b15d-2148af83755f">
         <Fields>
           <Field Name="ClaimType" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="ClaimValue" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -141,7 +141,7 @@
           <Field Name="RoleId" Type="string" MaxLength="450" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetUser" ObjectID="c5f52883-a234-4395-b47e-3ffdf6d623af">
+      <EntityDefinition Name="AspNetUser" ObjectID="eed9a825-0120-403e-b5ef-ed7a48897718">
         <Fields>
           <Field Name="AccessFailedCount" Type="int" Precision="10" />
           <Field Name="ConcurrencyStamp" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -162,7 +162,7 @@
           <Field Name="UserName" Type="string" IsOptional="true" MaxLength="256" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetUserClaim" ObjectID="64530658-61b7-43f4-9a20-353d70291a34">
+      <EntityDefinition Name="AspNetUserClaim" ObjectID="7d301015-93cc-4605-b2c9-721976be20b9">
         <Fields>
           <Field Name="ClaimType" Type="string" IsOptional="true" MaxLength="2147483647" />
           <Field Name="ClaimValue" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -170,7 +170,7 @@
           <Field Name="UserId" Type="string" MaxLength="450" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetUserLogin" ObjectID="27238218-1387-4888-9220-e2c6a17d32d2">
+      <EntityDefinition Name="AspNetUserLogin" ObjectID="27c4b30a-1909-41f1-b4c8-9bc51c4e989c">
         <Fields>
           <Field Name="LoginProvider" Type="string" MaxLength="450" IsPrimaryKey="true" />
           <Field Name="ProviderDisplayName" Type="string" IsOptional="true" MaxLength="2147483647" />
@@ -178,13 +178,13 @@
           <Field Name="UserId" Type="string" MaxLength="450" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetUserRole" ObjectID="346554ef-8434-4fce-874a-7fa5312193c8">
+      <EntityDefinition Name="AspNetUserRole" ObjectID="15b6a1e7-9704-4d13-8cde-23d403206d0f">
         <Fields>
           <Field Name="RoleId" Type="string" MaxLength="450" IsPrimaryKey="true" />
           <Field Name="UserId" Type="string" MaxLength="450" IsPrimaryKey="true" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="AspNetUserToken" ObjectID="a614f6b2-f415-489d-9fc1-86d74463e984">
+      <EntityDefinition Name="AspNetUserToken" ObjectID="2bbfd8cd-4447-4a30-b2f4-3ef0b61c3511">
         <Fields>
           <Field Name="LoginProvider" Type="string" MaxLength="450" IsPrimaryKey="true" />
           <Field Name="Name" Type="string" MaxLength="450" IsPrimaryKey="true" />
@@ -192,7 +192,7 @@
           <Field Name="Value" Type="string" IsOptional="true" MaxLength="2147483647" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Author" ObjectID="6b50a9ab-520c-453d-9db6-dfa941578de9">
+      <EntityDefinition Name="Author" ObjectID="aaf3d0e3-08b2-4787-a17b-b6c1ba3c6709">
         <Fields>
           <Field Name="Bio" Type="string" IsOptional="true" MaxLength="250" />
           <Field Name="FirstName" Type="string" IsOptional="true" MaxLength="50" />
@@ -200,7 +200,7 @@
           <Field Name="LastName" Type="string" IsOptional="true" MaxLength="50" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="Book" ObjectID="b13114cc-86c4-41f6-be84-dfd5cb1adf90">
+      <EntityDefinition Name="Book" ObjectID="4bb83273-817b-4d96-a436-7cc5a01f3f70">
         <Fields>
           <Field Name="AuthorId" Type="int" IsOptional="true" Precision="10" />
           <Field Name="Id" Type="int" IsReadOnly="true" Precision="10" IsPrimaryKey="true" />
@@ -212,7 +212,7 @@
           <Field Name="Year" Type="int" IsOptional="true" Precision="10" />
         </Fields>
       </EntityDefinition>
-      <EntityDefinition Name="EfmigrationsHistory" ObjectID="5837c835-24c1-4875-9d7d-b52e646d91fa">
+      <EntityDefinition Name="EfmigrationsHistory" ObjectID="79d957d0-3aa3-4aeb-a6a6-5cc7bf8f5d9f">
         <Fields>
           <Field Name="MigrationId" Type="string" MaxLength="150" IsPrimaryKey="true" />
           <Field Name="ProductVersion" Type="string" MaxLength="32" />
@@ -274,7 +274,7 @@
       <Catalogs>
         <Catalog Name="BookStoreDB" SyncSource="2">
           <Schemas>
-            <Schema Name="dbo" SyncSource="2" LastSyncWithDatabase="2022-06-15T04:18:52.6049846Z">
+            <Schema Name="dbo" SyncSource="2" LastSyncWithDatabase="2022-06-15T05:47:51.331675Z">
               <Tables>
                 <Table Name="__EFMigrationsHistory">
                   <PkConstraintName Name="PK___EFMigrationsHistory" />

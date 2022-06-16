@@ -19,6 +19,11 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\DataLayer\DatabaseGeneric\DL.csproj" />
+    <ProjectReference Include="..\DataLayer\DatabaseSpecific\DLDBSpecific.csproj" />
+  </ItemGroup>
+
+  <ItemGroup>
     <Content Update="appsettings.Production.json">
       <CopyToOutputDirectory>PreserveNewest</CopyToOutputDirectory>
       <ExcludeFromSingleFile>true</ExcludeFromSingleFile>

@@ -2,6 +2,8 @@
 @using Microsoft.AspNetCore.Authentication.OAuth.Claims
 @using BookStoreApp.Blazor.Server.UI.Static
 @using BookStoreApp.Blazor.Server.UI.Models
+@using DL.DatabaseSpecific;
+@using DL.Linq;
 @inject IAuthorService authorService
 @inject IJSRuntime js
 @inject NavigationManager navManager
@@ -100,6 +102,11 @@ else
     protected override async Task OnInitializedAsync()
     {
     //Authors = (await httpClient.AuthorsAllAsync()).ToList();
+        using (var adapter = new DataAccessAdapter())
+        {
+            var metaData = new LinqMetaData(adapter);
+        }
+
         response = await authorService.Get(new QueryParameters
         {
             StartIndex = 0

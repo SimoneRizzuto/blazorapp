@@ -9,6 +9,8 @@ using System;
 
 namespace DL
 {
+
+
 	/// <summary>Enum definition for all the entity types defined in this namespace. Used by the entityfields factory.</summary>
 	public enum EntityType
 	{
