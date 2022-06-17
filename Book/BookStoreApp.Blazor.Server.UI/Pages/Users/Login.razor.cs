@@ -2,6 +2,9 @@
 using BookStoreApp.Blazor.Server.UI.Services.Authentication;
 using BookStoreApp.Blazor.Server.UI.Services.Base;
 using System;
+using DL.DatabaseSpecific;
+using DL.Linq;
+using DL.HelperClasses;
 
 namespace BookStoreApp.Blazor.Server.UI.Pages.Users
 {
@@ -15,6 +18,23 @@ namespace BookStoreApp.Blazor.Server.UI.Pages.Users
 
         private async Task HandleLogin()
         {
+
+            //InitAspNetUserLoginEntityInfo
+            //LoginModel.Password = "";
+            //LoginModel.Email = "";
+
+            //var adapter = new DataAccessAdapter();
+
+
+
+            //var metaData = new LinqMetaData(adapter);
+
+
+
+            //var response2 = metaData.AspNetUserLogin.
+
+
+
             var response = await authService.AuthenticateAsync(LoginModel);
 
             if (response.Success)

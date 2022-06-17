@@ -27,7 +27,8 @@ namespace DL.DatabaseSpecific
 	{
 		/// <summary>The name of the key in the *.config file of the executing application which contains the connection string.</summary>
 		/// <remarks>Default: the value set in the LLBLGen Pro project properties</remarks>
-		public static string ConnectionStringKeyName="ConnectionString.SQL Server (SqlClient)";
+		public static string 
+            KeyName="ConnectionString.SQL Server (SqlClient)";
 
 		/// <summary>CTor</summary>
 		public DataAccessAdapter() : this(ReadConnectionStringFromConfig(), false, null, null) { }
@@ -109,11 +110,11 @@ namespace DL.DatabaseSpecific
 		/// <returns>connection string read</returns>
 		private static string ReadConnectionStringFromConfig()
 		{
-#if NETSTANDARD || NETCOREAPP
-			return RuntimeConfiguration.GetConnectionString(ConnectionStringKeyName);
-#else
-			return ConfigFileHelper.ReadConnectionStringFromConfig(ConnectionStringKeyName);
-#endif
+        #if NETSTANDARD || NETCOREAPP
+			        return RuntimeConfiguration.GetConnectionString("ConnectionString.SQL Server (SqlClient)");
+        #else
+			        return ConfigFileHelper.ReadConnectionStringFromConfig(ConnectionStringKeyName);
+        #endif
 		}
 		
 		/// <summary>Sets the per instance compatibility level on the dqe instance specified.</summary>

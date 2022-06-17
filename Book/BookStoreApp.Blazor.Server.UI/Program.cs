@@ -4,7 +4,11 @@ using BookStoreApp.Blazor.Server.UI.Providers;
 using BookStoreApp.Blazor.Server.UI.Services;
 using BookStoreApp.Blazor.Server.UI.Services.Authentication;
 using BookStoreApp.Blazor.Server.UI.Services.Base;
+using DL.DatabaseSpecific;
+using DL.Linq;
 using Microsoft.AspNetCore.Components.Authorization;
+using SD.LLBLGen.Pro.DQE.SqlServer;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 
 var builder = WebApplication.CreateBuilder(args);
 
@@ -25,7 +29,36 @@ builder.Services.AddScoped<ApiAuthenticationStateProvider>();
 builder.Services.AddScoped<AuthenticationStateProvider>(p => 
     p.GetRequiredService<ApiAuthenticationStateProvider>());
 
+void ConfigureLLBLGenPro(WebApplicationBuilder builder)
+{
+    var connectionString = "data source=.\\MSSQLSERVER01;initial catalog=BookStoreDB;integrated security=SSPI;persist security info=False";
+    if (!string.IsNullOrEmpty(connectionString)!)
+    {
+        RuntimeConfiguration.AddConnectionString("ConnectionString.SQL Server (SqlClient)", connectionString);
+    }
+
+    var factoryType = typeof(Microsoft.Data.SqlClient.SqlClientFactory);
+    RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c =>
+    {
+        c.AddDbProviderFactory(factoryType)
+            .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012);
+        c.AddCatalogNameOverwrite("*", string.Empty);
+    });
+
+
+    builder.Services.AddScoped<IDataAccessAdapter>(zz => new DataAccessAdapter
+    {
+        CatalogNameUsageSetting = CatalogNameUsage.Clear,
+        ActiveRecoveryStrategy = new SqlAzureRecoveryStrategy(),
+       // CommandTimeOut = sqlCommandTimeout
+    });
+    builder.Services.AddScoped<LinqMetaData>();
+}
+
+ConfigureLLBLGenPro(builder);
+
 var app = builder.Build();
+
 
 // Configure the HTTP request pipeline.
 if (!app.Environment.IsDevelopment())
@@ -34,6 +67,8 @@ if (!app.Environment.IsDevelopment())
     // The default HSTS value is 30 days. You may want to change this for production scenarios, see https://aka.ms/aspnetcore-hsts.
     app.UseHsts();
 }
+
+
 
 app.UseHttpsRedirection();
 

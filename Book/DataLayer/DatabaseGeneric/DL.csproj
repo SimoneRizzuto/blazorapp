@@ -6,6 +6,7 @@
     <RootNamespace>DL</RootNamespace>
   </PropertyGroup>
   <ItemGroup>
-    <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.9.0" />
+    <PackageReference Include="Microsoft.Data.SqlClient" Version="4.1.0" />
+    <PackageReference Include="SD.LLBLGen.Pro.ORMSupportClasses" Version="5.9.1" />
   </ItemGroup>
 </Project>

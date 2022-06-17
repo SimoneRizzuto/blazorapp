@@ -28,8 +28,7 @@ else
     {
         <div>
             <AuthorizeView Roles=@Roles.Administrator>
-                <DxButton Text="Create Book" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
-                      Click="@GoToCreate" />
+                <button @onclick="GoToCreate" class="btn btn-primary" type="button" ><span class="oi oi-plus" /> Create Book</button>
             </AuthorizeView>
         </div><br/>
         
@@ -82,10 +81,12 @@ else
                     @* Options *@
                     <DxGridCommandColumn Width="350px" Caption="Options">
                         <CellDisplayTemplate Context="currentBook">
-                            <DxButton Text="Details" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Details((int)@currentBook.GetRowValue("Id")))/>
+                            <button @onclick=@(() => Details((int)@currentBook.GetRowValue("Id"))) class="btn btn-primary" type="button" ><span class="oi oi-book" /> Details</button>
                             <AuthorizeView Roles=@Roles.Administrator>
-                                <DxButton Text="Edit" RenderStyle="ButtonRenderStyle.Warning" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
-                                <DxButton Text="Delete" RenderStyle="ButtonRenderStyle.Danger" SizeMode="SizeMode.Medium" IconCssClass="oi oi-delete" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>
+                                <button @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id"))) class="btn btn-warning" type="button" ><span class="oi oi-pencil" /> Edit</button>
+                                <button @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id"))) class="btn btn-danger" type="button" ><span class="oi oi-delete" /> Delete</button>
+
+                                
                             </AuthorizeView>
                         </CellDisplayTemplate>
                     </DxGridCommandColumn>

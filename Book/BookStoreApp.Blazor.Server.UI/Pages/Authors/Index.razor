@@ -3,7 +3,15 @@
 @using BookStoreApp.Blazor.Server.UI.Static
 @using BookStoreApp.Blazor.Server.UI.Models
 @using DL.DatabaseSpecific;
+@using DL.EntityClasses
+@using DL.FactoryClasses
 @using DL.Linq;
+@using SD.LLBLGen.Pro.QuerySpec;
+@using System.Collections.Immutable
+@using AutoMapper.QueryableExtensions
+@using DevExpress.Blazor.Internal
+@using SD.LLBLGen.Pro.LinqSupportClasses
+@using System.Data.SqlClient
 @inject IAuthorService authorService
 @inject IJSRuntime js
 @inject NavigationManager navManager
@@ -36,8 +44,7 @@ else
     {
         <div>
             <AuthorizeView Roles=@Roles.Administrator>
-                <DxButton Text="Create Author" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-plus" 
-                          Click="@GoToCreate" ></DxButton>
+                <button @onclick="GoToCreate" class="btn btn-primary" type="button" ><span class="oi oi-plus" /> Create Author</button>
             </AuthorizeView>
         </div><br/>
 
@@ -72,10 +79,12 @@ else
                     @* Options *@
                     <DxGridCommandColumn Width="350px" Caption="Options">
                         <CellDisplayTemplate Context="currentBook">
-                            <DxButton Text="Details" RenderStyle="ButtonRenderStyle.Primary" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Details((int)@currentBook.GetRowValue("Id")))/>
+                            <button @onclick=@(() => Details((int)@currentBook.GetRowValue("Id"))) class="btn btn-primary" type="button" ><span class="oi oi-book" /> Details</button>
                             <AuthorizeView Roles=@Roles.Administrator>
-                                <DxButton Text="Edit" RenderStyle="ButtonRenderStyle.Warning" SizeMode="SizeMode.Medium" IconCssClass="oi oi-pencil" @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id")))/>
-                                <DxButton Text="Delete" RenderStyle="ButtonRenderStyle.Danger" SizeMode="SizeMode.Medium" IconCssClass="oi oi-delete" @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id")))/>
+                                <button @onclick=@(() => Edit((int)@currentBook.GetRowValue("Id"))) class="btn btn-warning" type="button" ><span class="oi oi-pencil" /> Edit</button>
+                                <button @onclick=@(() => Delete((int)@currentBook.GetRowValue("Id"))) class="btn btn-danger" type="button" ><span class="oi oi-delete" /> Delete</button>
+
+                                
                             </AuthorizeView>
                         </CellDisplayTemplate>
                     </DxGridCommandColumn>
@@ -101,12 +110,37 @@ else
 
     protected override async Task OnInitializedAsync()
     {
-    //Authors = (await httpClient.AuthorsAllAsync()).ToList();
-        using (var adapter = new DataAccessAdapter())
+        /*using (var adapter = new DataAccessAdapter())
         {
             var metaData = new LinqMetaData(adapter);
-        }
 
+            Console.WriteLine(await metaData.Author.CountAsync());
+
+            /*for (int i = 0; i < metaData.Author.Count; i++)
+            {
+
+            }#1#
+
+            //Authors = await metaData.Author.FirstOrDefaultAsync(x => x.);
+
+            //var authorFirstName = await metaData.Author.FirstOrDefaultAsync(x => x.Id == IdGuid);
+
+            //var queryFactory = new QueryFactory();
+            //var query = queryFactory.Author;
+            
+
+
+            
+
+            //await metaData.;
+            // var fetch = await adapter.FetchQueryAsync();
+            //int count = metaData.Author.Count();
+        }*/
+
+        
+    //response = await AuthorService
+
+    //Authors = (await httpClient.AuthorsAllAsync()).ToList();
         response = await authorService.Get(new QueryParameters
         {
             StartIndex = 0
@@ -160,4 +194,13 @@ else
     {
         navManager.NavigateTo("/authors/create/");
     }
+
+
+    /*
+        Ok, so it started to detect those variables. How would i get those variables onto my custom data types.
+        Ive got private List<AuthorReadOnlyDto> Authors; that needs to be filled out.
+        AuthorRedOnlyDto has a FirstName, LastName and Bio that needs to be filled out.
+     */
+
 }
+
