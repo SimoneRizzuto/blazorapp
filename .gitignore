@@ -12,3 +12,6 @@ artifacts/
 #build.cmd
 #build.ps1
 #build.sh
+
+# Unit Testing
+BookStoreApp.Benchmark/
