@@ -2,22 +2,31 @@ using System.Text;
 using BookStoreApp.API.Configurations;
 using BookStoreApp.API.Data;
 using BookStoreApp.API.Repositories;
+using DL.DatabaseSpecific;
+using DL.EntityClasses;
+using DL.Linq;
 using Microsoft.AspNetCore.Authentication.JwtBearer;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.EntityFrameworkCore;
 using Microsoft.Extensions.DependencyInjection;
 using Microsoft.IdentityModel.Tokens;
+using SD.LLBLGen.Pro.DQE.SqlServer;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 using Serilog;
 
 var builder = WebApplication.CreateBuilder(args);
 
 // Add services to the container.
 var connString = builder.Configuration.GetConnectionString("BookStoreAppDBConnection");
-builder.Services.AddDbContext<BookStoreDBContext>(options => options.UseSqlServer(connString));
 
-builder.Services.AddIdentityCore<ApiUser>()
+/*builder.Services.AddIdentityCore<ApiUser>()
     .AddRoles<IdentityRole>()
-    .AddEntityFrameworkStores<BookStoreDBContext>();
+    .AddEntityFrameworkStores<BookStoreDBContext>();*/
+builder.Services.AddIdentity<AspNetUserEntity, AspNetRoleEntity>()
+    .AddDefaultTokenProviders();
+
+builder.Services.AddTransient<IUserStore<AspNetUserEntity>, LLBLGenUserStore>();
+builder.Services.AddTransient<IRoleStore<AspNetRoleEntity>, LLBLGenRoleStore>();
 
 builder.Services.AddScoped<IAuthorsRepository, AuthorsRepository>();
 builder.Services.AddScoped<IBooksRepository, BooksRepository>();
@@ -29,8 +38,40 @@ builder.Services.AddControllers();
 builder.Services.AddEndpointsApiExplorer();
 builder.Services.AddSwaggerGen();
 
-builder.Host.UseSerilog((ctx, lc) => 
-    lc.WriteTo.Console().ReadFrom.Configuration(ctx.Configuration));
+builder.Host.UseSerilog((ctx, lc) =>
+    lc.WriteTo.Console()
+        .WriteTo.Debug()
+        .ReadFrom.Configuration(ctx.Configuration));
+
+
+
+void ConfigureLLBLGenPro(WebApplicationBuilder builder)
+{
+    var connectionString = connString;
+    if (!string.IsNullOrEmpty(connectionString)!)
+    {
+        RuntimeConfiguration.AddConnectionString("ConnectionString.SQL Server (SqlClient)", connectionString);
+    }
+
+    var factoryType = typeof(Microsoft.Data.SqlClient.SqlClientFactory);
+    RuntimeConfiguration.ConfigureDQE<SQLServerDQEConfiguration>(c =>
+    {
+        c.AddDbProviderFactory(factoryType)
+            .SetDefaultCompatibilityLevel(SqlServerCompatibilityLevel.SqlServer2012);
+        c.AddCatalogNameOverwrite("*", string.Empty);
+    });
+
+
+    builder.Services.AddScoped<IDataAccessAdapter>(zz => new DataAccessAdapter
+    {
+        CatalogNameUsageSetting = CatalogNameUsage.Clear,
+        ActiveRecoveryStrategy = new SqlAzureRecoveryStrategy(),
+        // CommandTimeOut = sqlCommandTimeout
+    });
+    builder.Services.AddScoped<LinqMetaData>();
+}
+
+ConfigureLLBLGenPro(builder);
 
 builder.Services.AddCors(options =>
 {

@@ -12,8 +12,11 @@ using BookStoreApp.API.Models;
 using BookStoreApp.API.Models.Author;
 using BookStoreApp.API.Repositories;
 using BookStoreApp.API.Static;
+using DL.EntityClasses;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.Extensions.Logging.Configuration;
+using SD.LLBLGen.Pro.ORMSupportClasses;
+using QueryParameters = BookStoreApp.API.Models.QueryParameters;
 
 namespace BookStoreApp.API.Controllers
 {
@@ -22,15 +25,17 @@ namespace BookStoreApp.API.Controllers
     [Authorize]
     public class AuthorsController : ControllerBase
     {
+        private readonly IDataAccessAdapter dataAccessAdapter;
         private readonly IAuthorsRepository authorsRepository;
         private readonly IMapper mapper;
         private readonly ILogger<AuthorsController> logger;
 
-        public AuthorsController(IAuthorsRepository authorsRepository, IMapper mapper, ILogger<AuthorsController> logger)
+        public AuthorsController(IDataAccessAdapter dataAccessAdapter, IAuthorsRepository authorsRepository, IMapper mapper, ILogger<AuthorsController> logger)
         {
             this.authorsRepository = authorsRepository;
             this.mapper = mapper;
             this.logger = logger;
+            this.dataAccessAdapter = dataAccessAdapter;
         }
 
         // GET: api/Authors/?startindex=0&pagesize=15
@@ -153,7 +158,7 @@ namespace BookStoreApp.API.Controllers
         {
             try
             {
-                var author = mapper.Map<Author>(authorDto);
+                var author = mapper.Map<AuthorEntity>(authorDto);
 
                 if (author == null)
                 {

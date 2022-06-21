@@ -2,33 +2,40 @@
 using AutoMapper.QueryableExtensions;
 using BookStoreApp.API.Data;
 using BookStoreApp.API.Models.Book;
-using Microsoft.EntityFrameworkCore;
+using DL.DatabaseSpecific;
+using DL.EntityClasses;
+using DL.Linq;
+using LLBLGen.Linq.Prefetch;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace BookStoreApp.API.Repositories;
 
-public class BooksRepository : GenericRepository<Book>, IBooksRepository
+public class BooksRepository : GenericRepository<BookEntity>, IBooksRepository
 {
-    private readonly BookStoreDBContext context;
+    private readonly IDataAccessAdapter context;
+    private readonly LinqMetaData linq;
     private readonly IMapper mapper;
-    public BooksRepository(BookStoreDBContext context, IMapper mapper) : base(context, mapper)
+    private readonly IDataAccessAdapter adapter;
+    public BooksRepository(IMapper mapper, IDataAccessAdapter context, LinqMetaData linq) : base(context, linq, mapper)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.context = context;
+        this.linq = linq;
     }
 
     public async Task<List<BookReadOnlyDto>> GetAllBooksAsync()
     {
-        return await context.Books
+        return linq.Book
             .Include(q => q.Author)
-            .ProjectTo<BookReadOnlyDto>(mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ToList()
+            .Select(zz => mapper.Map<BookReadOnlyDto>(zz))
+            .ToList();
     }
 
     public async Task<BookDetailsDto> GetBookAsync(int id)
     {
-        return await context.Books
+        return mapper.Map<BookDetailsDto>(linq.Book
             .Include(q => q.Author)
-            .ProjectTo<BookDetailsDto>(mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(q => q.Id == id);
+            .FirstOrDefault(q => q.Id == id));
     }
 }

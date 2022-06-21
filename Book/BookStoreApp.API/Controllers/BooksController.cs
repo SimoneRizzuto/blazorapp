@@ -10,6 +10,7 @@ using Microsoft.EntityFrameworkCore;
 using BookStoreApp.API.Data;
 using BookStoreApp.API.Models.Book;
 using BookStoreApp.API.Repositories;
+using DL.EntityClasses;
 using Microsoft.AspNetCore.Authorization;
 
 namespace BookStoreApp.API.Controllers
@@ -109,7 +110,7 @@ namespace BookStoreApp.API.Controllers
         [Authorize(Roles = "Administrator")]
         public async Task<ActionResult<BookCreateDto>> PostBook(BookCreateDto bookDto)
         {
-            var book = mapper.Map<Book>(bookDto);
+            var book = mapper.Map<BookEntity>(bookDto);
             if (string.IsNullOrEmpty(bookDto.ImageData) == false)
             {
                 book.Image = CreateFile(bookDto.ImageData, bookDto.OriginalImageName);

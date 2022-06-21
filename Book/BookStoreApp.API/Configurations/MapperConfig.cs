@@ -4,6 +4,7 @@ using BookStoreApp.API.Data;
 using BookStoreApp.API.Models.Author;
 using BookStoreApp.API.Models.Book;
 using BookStoreApp.API.Models.User;
+using DL.EntityClasses;
 
 namespace BookStoreApp.API.Configurations
 {
@@ -11,22 +12,23 @@ namespace BookStoreApp.API.Configurations
     {
         public MapperConfig()
         {
-            CreateMap<AuthorCreateDto, Author>().ReverseMap();
-            CreateMap<AuthorUpdateDto, Author>().ReverseMap();
-            CreateMap<AuthorReadOnlyDto, Author>().ReverseMap();
-            CreateMap<AuthorDetailsDto, Author>().ReverseMap();
+            CreateMap<AuthorCreateDto, AuthorEntity>().ReverseMap();
+            CreateMap<AuthorUpdateDto, AuthorEntity>().ReverseMap();
+            CreateMap<AuthorReadOnlyDto, AuthorEntity>().ReverseMap();
+            CreateMap<AuthorDetailsDto, AuthorEntity>().ReverseMap();
 
-            CreateMap<BookCreateDto, Book>().ReverseMap();
-            CreateMap<BookUpdateDto, Book>().ReverseMap();
+            CreateMap<BookCreateDto, BookEntity>().ReverseMap();
+            CreateMap<BookUpdateDto, BookEntity>().ReverseMap();
 
-            CreateMap<Book, BookReadOnlyDto>()
+            CreateMap<BookEntity, BookReadOnlyDto>()
                 .ForMember(q => q.AuthorName, d => d.MapFrom(map => $"{map.Author.FirstName} {map.Author.LastName}"))
                 .ReverseMap();
-            CreateMap<Book, BookDetailsDto>()
+            CreateMap<BookEntity, BookDetailsDto>()
                 .ForMember(q => q.AuthorName, d => d.MapFrom(map => $"{map.Author.FirstName} {map.Author.LastName}"))
                 .ReverseMap();
 
-            CreateMap<ApiUser, UserDto>().ReverseMap();
+            CreateMap<AspNetUserEntity, UserDto>()
+                .ReverseMap();
         }
     }
 }

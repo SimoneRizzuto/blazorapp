@@ -2,26 +2,41 @@
 using AutoMapper.QueryableExtensions;
 using BookStoreApp.API.Controllers;
 using BookStoreApp.API.Data;
-using Microsoft.EntityFrameworkCore;
+using DL.DatabaseSpecific;
+using DL.EntityClasses;
+using DL.Linq;
+using LLBLGen.Linq.Prefetch;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 
 namespace BookStoreApp.API.Repositories;
 
-public class AuthorsRepository : GenericRepository<Author>, IAuthorsRepository
+public class AuthorsRepository : GenericRepository<AuthorEntity>, IAuthorsRepository
 {
-    private readonly BookStoreDBContext context;
+    private readonly IDataAccessAdapter context;
+    private readonly LinqMetaData linq;
     private readonly IMapper mapper;
-    public AuthorsRepository(BookStoreDBContext context, IMapper mapper) : base(context, mapper)
+    private readonly IDataAccessAdapter adapter;
+    public AuthorsRepository(IMapper mapper, IDataAccessAdapter context, LinqMetaData linq) : base(context, linq, mapper)
     {
-        this.context = context;
         this.mapper = mapper;
+        this.context = context;
+        this.linq = linq;
     }
+
     public async Task<AuthorDetailsDto> GetAuthorDetailsAsync(int id)
     {
-        var author = await context.Authors
+        /*var metaData = new LinqMetaData(adapter);
+
+        var author2 = from a in metaData.Author where a.Id==id select a;*/
+
+        var author = linq.Author
             .Include(q => q.Books)
-            .ProjectTo<AuthorDetailsDto>(mapper.ConfigurationProvider)
-            .FirstOrDefaultAsync(q => q.Id == id);
+            .Where(zz => zz.Id == id)
+            .ToList()
+            .Select(zz => mapper.Map<AuthorDetailsDto>(zz))
+            .FirstOrDefault();
 
         return author;
     }
+
 }

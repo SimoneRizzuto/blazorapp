@@ -1,4 +1,4 @@
-<Project Sdk="Microsoft.NET.Sdk.Web">
+﻿<Project Sdk="Microsoft.NET.Sdk.Web">
 
   <PropertyGroup>
     <TargetFramework>net6.0</TargetFramework>
@@ -22,6 +22,7 @@
   </ItemGroup>
 
   <ItemGroup>
+    <ProjectReference Include="..\BookStoreApp.API\BookStoreApp.API.csproj" />
     <ProjectReference Include="..\DataLayer\DatabaseGeneric\DL.csproj" />
     <ProjectReference Include="..\DataLayer\DatabaseSpecific\DLDBSpecific.csproj" />
   </ItemGroup>

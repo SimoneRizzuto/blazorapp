@@ -2,33 +2,40 @@
 using AutoMapper.QueryableExtensions;
 using BookStoreApp.API.Data;
 using BookStoreApp.API.Models;
+using DL.DatabaseSpecific;
+using DL.EntityClasses;
+using DL.HelperClasses;
+using DL.Linq;
 using Microsoft.CodeAnalysis.CSharp.Syntax;
 using Microsoft.EntityFrameworkCore;
+using SD.LLBLGen.Pro.ORMSupportClasses;
+using SD.LLBLGen.Pro.LinqSupportClasses;
+using QueryParameters = BookStoreApp.API.Models.QueryParameters;
 
 namespace BookStoreApp.API.Repositories;
 
-public class GenericRepository<T> : IGenericRepository<T> where T : class
+public class GenericRepository<T> : IGenericRepository<T> where T : CommonEntityBase
 {
-    private readonly BookStoreDBContext context;
+    private readonly IDataAccessAdapter context;
+    private readonly LinqMetaData linq;
     private readonly IMapper mapper;
-    public GenericRepository(BookStoreDBContext context, IMapper mapper)
+    public GenericRepository(IDataAccessAdapter context, LinqMetaData linq, IMapper mapper)
     {
         this.context = context;
+        this.linq = linq;
         this.mapper = mapper;
     }
     
     public async Task<T> AddAsync(T entity)
     {
-        await context.AddAsync(entity);
-        await context.SaveChangesAsync();
+        await context.SaveEntityAsync(entity);
 
         return entity;
     }
     public async Task DeleteAsync(int id)
     {
         var entity = await GetAsync(id);
-        context.Set<T>().Remove(entity);
-        await context.SaveChangesAsync();
+        await context.DeleteEntityAsync(entity);
     }
     public async Task<bool> Exists(int id)
     {
@@ -37,7 +44,9 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     }
     public async Task<List<T>> GetAllAsync()
     {
-        return await context.Set<T>().ToListAsync();
+        var retCollection = new EntityCollection<T>();
+        context.FetchEntityCollection(retCollection, null);
+        return retCollection.ToList();
     }
     public async Task<T> GetAsync(int? id)
     {
@@ -46,17 +55,19 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
             return null;
         }
 
-        return await context.Set<T>().FindAsync(id);
+        return (await GetAllAsync())
+            .FirstOrDefault(zz => (int)zz.Fields["Id"].CurrentValue == id.Value);
     }
 
     public async Task<VirtualiseResponse<TResult>> GetAllAsync<TResult>(QueryParameters queryParam) where TResult : class
     {
-        var totalSize = await context.Set<T>().CountAsync();
-        var items = await context.Set<T>()
+        var totalSize = linq.GetQueryableForEntity<T>().Count();
+        var query = linq.GetQueryableForEntity<T>()
             .Skip(queryParam.StartIndex)
             .Take(queryParam.PageSize)
-            .ProjectTo<TResult>(mapper.ConfigurationProvider)
-            .ToListAsync();
+            .ToList();
+
+        var items = query.Select(zz => mapper.Map<TResult>(zz)).ToList();
 
         return new VirtualiseResponse<TResult>
         {
@@ -66,7 +77,6 @@ public class GenericRepository<T> : IGenericRepository<T> where T : class
     }
     public async Task UpdateAsync(T entity)
     {
-        context.Update(entity);
-        await context.SaveChangesAsync();
+        await context.SaveEntityAsync(entity);
     }
 }

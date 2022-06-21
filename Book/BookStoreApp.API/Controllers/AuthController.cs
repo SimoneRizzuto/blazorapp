@@ -5,12 +5,18 @@ using AutoMapper;
 using BookStoreApp.API.Data;
 using BookStoreApp.API.Models.User;
 using BookStoreApp.API.Static;
+using DL.DatabaseSpecific;
+using DL.EntityClasses;
+using DL.FactoryClasses;
+using DL.Linq;
 using Microsoft.AspNetCore.Authorization;
 using Microsoft.AspNetCore.Http;
 using Microsoft.AspNetCore.Identity;
 using Microsoft.AspNetCore.Mvc;
-using Microsoft.EntityFrameworkCore.Metadata;
 using Microsoft.IdentityModel.Tokens;
+using SD.LLBLGen.Pro.QuerySpec;
+using SD.LLBLGen.Pro.QuerySpec.Adapter;
+using SD.LLBLGen.Pro.ORMSupportClasses;
 using JwtRegisteredClaimNames = Microsoft.IdentityModel.JsonWebTokens.JwtRegisteredClaimNames;
 
 namespace BookStoreApp.API.Controllers
@@ -20,17 +26,19 @@ namespace BookStoreApp.API.Controllers
     [AllowAnonymous]
     public class AuthController : ControllerBase
     {
+        private readonly IDataAccessAdapter dataAccessAdapter;
         private readonly ILogger<AuthController> logger;
         private readonly IMapper mapper;
-        private readonly UserManager<ApiUser> userManager;
+        private readonly UserManager<AspNetUserEntity> userManager;
         private readonly IConfiguration configuration;
 
-        public AuthController(ILogger<AuthController> logger, IMapper mapper, UserManager<ApiUser> userManager, IConfiguration configuration)
+        public AuthController(IDataAccessAdapter dataAccessAdapter, ILogger<AuthController> logger, IMapper mapper, UserManager<AspNetUserEntity> userManager, IConfiguration configuration)
         {
             this.logger = logger;
             this.mapper = mapper;
             this.userManager = userManager;
             this.configuration = configuration;
+            this.dataAccessAdapter = dataAccessAdapter;
         }
 
         [HttpPost]
@@ -41,7 +49,7 @@ namespace BookStoreApp.API.Controllers
 
             try
             {
-                var user = mapper.Map<ApiUser>(userDto);
+                var user = mapper.Map<AspNetUserEntity>(userDto);
                 user.UserName = userDto.Email;
                 var result = await userManager.CreateAsync(user, userDto.Password);
 
@@ -70,9 +78,23 @@ namespace BookStoreApp.API.Controllers
         [Route("login")]
         public async Task<ActionResult<AuthResponse>> Login(LoginUserDto userDto)
         {
+            //var userEmail = (from e in metaData.AspNetUser select e.Email).ToList();
             logger.LogInformation($"Registration Attempt for {userDto.Email}");
             try
             {
+                var metaData = new LinqMetaData(dataAccessAdapter);
+                var userEmail = (from a in metaData.AspNetUser where a.Email==userDto.Email select a.Email).ToList();
+                logger.LogInformation($"List of emails: {userEmail}");
+
+
+                var passwordHash = userDto.Password;
+                var userPassword = (from a in metaData.AspNetUser select a.PasswordHash).ToList();
+                logger.LogInformation($"List of password: {userPassword}");
+
+
+
+
+
                 var user = await userManager.FindByEmailAsync(userDto.Email);
                 var passwordValid = await userManager.CheckPasswordAsync(user, userDto.Password);
 
@@ -99,7 +121,7 @@ namespace BookStoreApp.API.Controllers
             }
         }
 
-        private async Task<string> GenerateToken(ApiUser user)
+        private async Task<string> GenerateToken(AspNetUserEntity user)
         {
             var securityKey = new SymmetricSecurityKey(Encoding.UTF8.GetBytes(configuration["JwtSettings:Key"]));
             var credentials = new SigningCredentials(securityKey, SecurityAlgorithms.HmacSha256);
